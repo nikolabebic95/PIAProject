@@ -1,0 +1,18 @@
+{
+    "Oglasi": [
+	{
+    "Kompanija": "Elsys",
+    "Pozicija": "Embedded Software Engineer",
+    "Opis": "Otvoreno 15 pozicija u Beogradu za letnju praksu i zaposlenje",
+    "Tip": "praksa/posao",
+    "RokPrijave": "20/05/2018"
+  	},
+  	{
+    "Kompanija": "HDL",
+    "Pozicija": "Junior Digital Design Engineer",
+    "Opis": "Otvorene pozicije u razvojnom centru u Beogradu",
+    "Tip": "posao",
+    "RokPrijave": "31/05/2018"
+  	}
+	]
+}
