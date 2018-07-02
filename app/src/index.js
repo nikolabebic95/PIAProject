@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'jquery/dist/jquery'
+import 'popper.js/dist/popper'
+import 'bootstrap/dist/js/bootstrap.min'
 import App from './App';
 import * as Account from "./accounts/Routes";
 import registerServiceWorker from './registerServiceWorker';
