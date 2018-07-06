@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -9,9 +11,10 @@ namespace RestApi.Models
     [Table("Announcement")]
     public partial class Announcement
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [JsonIgnore]
         public int CompanyId { get; set; }
 
         [Required]

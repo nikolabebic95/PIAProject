@@ -1,32 +1,78 @@
 import * as React from "react"
 
-class Announcement {
-
+type ListAnnouncementsState = {
+    items: Announcement[]
 }
 
-class ListAnnouncements extends React.Component {
+class ListAnnouncements extends React.Component<any, ListAnnouncementsState> {
     public constructor(props) {
         super(props);
-        this.state={items:[]};
+        this.state = {
+            items: []
+        };
     }
 
     public componentDidMount() {
-        fetch("http://localhost:56871/api/Companies", {method: 'GET'})
-            .then(result=>result.json())
-            .then(items=>this.setState({items:items})).catch(e => {
-                this.setState({items: [].push(e)});
-        })
+        fetch("http://localhost:56871/api/Announcements", {method: 'GET'})
+            .then(result => result.json())
+            .then(items => this.setState({items: items}))
     }
 
     public render() {
-        return (
-            <ul>
-                {this.state.items.length ?
-                    this.state.items.map(item=><li key={item.Id}>{item.Name}</li>)
-                    : <li>Loading...</li>
+        return this.state.items.length ? (
+            <table className="table">
+                <thead>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Internship
+                </th>
+                <th>
+                    Job
+                </th>
+                <th>
+                    Deadline
+                </th>
+                </thead>
+                {
+                    this.state.items.map(item => {
+                        return (
+                            <tr>
+                                <td>
+                                    {item.Title}
+                                </td>
+                                <td>
+                                    {item.Company.Name}
+                                </td>
+                                <td>
+                                    {item.Description}
+                                </td>
+                                <td>
+                                    {item.IsInternship ? "Yes" : "No"}
+                                </td>
+                                <td>
+                                    {item.IsJob ? "Yes" : "No"}
+                                </td>
+                                <td>
+                                    {new Date(item.Deadline).toLocaleDateString()} {new Date(item.Deadline).toLocaleTimeString()}
+                                </td>
+                            </tr>
+                        )
+                    })
                 }
-            </ul>
-        )
+            </table>
+        ) : (
+            <div className="container alert alert-info text-center">
+                Loading...
+            </div>
+        );
     }
 }
 
