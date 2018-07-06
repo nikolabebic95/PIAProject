@@ -28,3 +28,17 @@ type Announcement = {
     Company: Company
 }
 
+type Lecture = {
+    Id: number,
+    Title: string,
+    TitleEnglish: string,
+    Description: string,
+    DescriptionEnglish: string,
+    DateTime: string,
+    Room: string,
+    LecturerName: string,
+    LecturerBio: string,
+    Attachment: any,
+    Image: any,
+    Company: Company
+}

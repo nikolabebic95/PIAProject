@@ -21,7 +21,7 @@ namespace RestApi.Controllers
         // GET: api/Announcements
         public IQueryable<Announcement> GetAnnouncements()
         {
-            return db.Announcements;
+            return db.Announcements.OrderBy(entry => entry.InputDateTime);
         }
 
         // GET: api/Announcements/5

@@ -41,18 +41,19 @@ class ListAnnouncements extends React.Component<any, ListAnnouncementsState> {
                     Deadline
                 </th>
                 </thead>
+                <tbody>
                 {
                     this.state.items.map(item => {
                         return (
                             <tr>
                                 <td>
-                                    {item.Title}
+                                    {item.Title.trim()}
                                 </td>
                                 <td>
-                                    {item.Company.Name}
+                                    {item.Company.Name.trim()}
                                 </td>
                                 <td>
-                                    {item.Description}
+                                    {item.Description.trim()}
                                 </td>
                                 <td>
                                     {item.IsInternship ? "Yes" : "No"}
@@ -67,6 +68,7 @@ class ListAnnouncements extends React.Component<any, ListAnnouncementsState> {
                         )
                     })
                 }
+                </tbody>
             </table>
         ) : (
             <div className="container alert alert-info text-center">

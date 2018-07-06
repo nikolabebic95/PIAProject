@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -11,6 +13,7 @@ namespace RestApi.Models
     {
         public int Id { get; set; }
 
+        [JsonIgnore]
         public int CompanyId { get; set; }
 
         [Required]

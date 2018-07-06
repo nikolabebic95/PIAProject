@@ -68,3 +68,4 @@ app/src/accounts/*.js
 app/src/utils/*.js
 app/src/announcements/*.js
 app/src/models/*.js
+app/src/lectures/*.js
