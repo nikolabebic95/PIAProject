@@ -19,9 +19,21 @@ namespace RestApi.Controllers
         private Model1 db = new Model1();
 
         // GET: api/Lectures
-        public IQueryable<Lecture> GetLectures()
+        public IQueryable<Lecture> GetLectures([FromUri] string time = null, int limit = 0)
         {
-            return db.Lectures.OrderBy(entry => entry.DateTime);
+            if (limit == 0) limit = int.MaxValue;
+
+            switch (time)
+            {
+                case "future":
+                    return db.Lectures.Where(entry => entry.DateTime > DateTime.Now)
+                        .OrderBy(entry => entry.DateTime).Take(limit);
+                case "past":
+                    return db.Lectures.Where(entry => entry.DateTime < DateTime.Now)
+                        .OrderByDescending(entry => entry.DateTime).Take(limit);
+                default:
+                    return db.Lectures.OrderBy(entry => entry.DateTime).Take(limit);
+            }
         }
 
         // GET: api/Lectures/5
