@@ -3,7 +3,8 @@ import * as React from "react"
 type SignupState = {
     user: UserTable;
     message: string,
-    confirm_password: string
+    confirm_password: string,
+    profile_picture: any
 }
 
 // TODO: Implement actual signup
@@ -26,11 +27,13 @@ class Signup extends React.Component<any, SignupState> {
                 LinkedInAddress: ""
             },
             message: "",
-            confirm_password: ""
+            confirm_password: "",
+            profile_picture: null
         };
 
         this.updateState = this.updateState.bind(this);
         this.submitForm = this.submitForm.bind(this);
+        this.updateProfilePicture = this.updateProfilePicture.bind(this);
     }
 
     private checkPassword(): boolean {
@@ -61,7 +64,8 @@ class Signup extends React.Component<any, SignupState> {
             return {
                 user: prevState.user,
                 message: message,
-                confirm_password: prevState.confirm_password
+                confirm_password: prevState.confirm_password,
+                profile_picture: null
             }
         });
     }
@@ -109,23 +113,47 @@ class Signup extends React.Component<any, SignupState> {
 
         let gender = male.checked ? "M" : female.checked ? "F" : "N";
 
-        this.setState({
-            user: {
-                Id: 0,
-                FirstName: first_name.value,
-                LastName: last_name.value,
-                Email: email.value,
-                Organization: organization.value,
-                Username: username.value,
-                Password: password.value,
-                Gender: gender,
-                BirthDate: birth_date.value,
-                ProfilePicture: profile_picture.value,
-                LinkedInAddress: linkedin.value
-            },
-            message: "",
-            confirm_password: confirm_password.value
+        this.setState(prevState => {
+            return {
+                user: {
+                    Id: 0,
+                    FirstName: first_name.value,
+                    LastName: last_name.value,
+                    Email: email.value,
+                    Organization: organization.value,
+                    Username: username.value,
+                    Password: password.value,
+                    Gender: gender,
+                    BirthDate: birth_date.value,
+                    ProfilePicture: profile_picture.value,
+                    LinkedInAddress: linkedin.value
+                },
+                message: "",
+                confirm_password: confirm_password.value,
+                profile_picture: prevState.profile_picture
+            }
         })
+    }
+
+    private updateProfilePicture() {
+        this.updateState();
+
+        let profile_picture = document.getElementById("profile_picture") as HTMLInputElement;
+        let file = profile_picture.files[0];
+
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            let result = reader.result;
+            this.setState(prevState => {
+                return {
+                    user: prevState.user,
+                    message: prevState.message,
+                    confirm_password: prevState.confirm_password,
+                    profile_picture: result
+                }
+            })
+        };
     }
 
     public render() {
@@ -190,7 +218,7 @@ class Signup extends React.Component<any, SignupState> {
                         <div className="col-sm-4 form-group">
                             <label>Profile picture</label>
                             <input type="file" accept="image/*" className="form-control" id="profile_picture"
-                                   onChange={this.updateState}/>
+                                   onChange={this.updateProfilePicture}/>
                         </div>
                         <div className="col-sm-4 form-group">
                             <label>LinkedIn Address</label>
