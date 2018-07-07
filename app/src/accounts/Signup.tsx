@@ -189,7 +189,7 @@ class Signup extends React.Component<any, SignupState> {
                         </div>
                         <div className="col-sm-4 form-group">
                             <label>Profile picture</label>
-                            <input type="file" className="form-control" id="profile_picture"
+                            <input type="file" accept="image/*" className="form-control" id="profile_picture"
                                    onChange={this.updateState}/>
                         </div>
                         <div className="col-sm-4 form-group">
