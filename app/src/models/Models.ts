@@ -42,3 +42,17 @@ type Lecture = {
     Image: any,
     Company: Company
 }
+
+type UserTable = {
+    Id: number,
+    FirstName: string,
+    LastName: string,
+    Email: string,
+    Organization: string,
+    Username: string,
+    Password: string,
+    Gender: string,
+    BirthDate: string,
+    ProfilePicture: any,
+    LinkedInAddress: string
+}
