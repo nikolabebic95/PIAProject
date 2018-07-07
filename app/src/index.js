@@ -8,6 +8,7 @@ import App from './App';
 import * as Account from "./accounts/Routes";
 import * as Announcements from "./announcements/Routes"
 import * as Lectures from "./lectures/Routes"
+import * as Companies from "./companies/Routes"
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Layout from "./utils/Layout"
@@ -16,7 +17,8 @@ import Layout from "./utils/Layout"
 const routes = []
     .concat(Account.routes())
     .concat(Announcements.routes())
-    .concat(Lectures.routes());
+    .concat(Lectures.routes())
+    .concat(Companies.routes());
 
 ReactDOM.render(
     <Router>
