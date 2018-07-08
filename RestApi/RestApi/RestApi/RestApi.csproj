@@ -138,15 +138,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
+    <Compile Include="Data\DataModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Announcement.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Contract.cs" />
-    <Compile Include="Models\ContractStatu.cs" />
+    <Compile Include="Models\ContractStatus.cs" />
     <Compile Include="Models\CooperatesWith.cs" />
     <Compile Include="Models\DonorContract.cs" />
     <Compile Include="Models\Email.cs" />
@@ -156,7 +158,6 @@
     <Compile Include="Models\Package.cs" />
     <Compile Include="Models\PackageItem.cs" />
     <Compile Include="Models\PhoneNumber.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\UserTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -173,7 +174,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Companies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

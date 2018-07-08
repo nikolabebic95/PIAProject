@@ -9,7 +9,6 @@ namespace RestApi.Models
     [Table("CooperatesWith")]
     public partial class CooperatesWith
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public int UserTableId { get; set; }

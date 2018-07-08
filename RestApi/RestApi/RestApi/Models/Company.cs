@@ -69,8 +69,8 @@ namespace RestApi.Models
         public string ContactEmail { get; set; }
 
         [Required]
-        [Column(TypeName = "image")]
-        public byte[] Logo { get; set; }
+        [StringLength(100)]
+        public string Logo { get; set; }
 
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

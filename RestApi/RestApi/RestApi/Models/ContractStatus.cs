@@ -6,10 +6,10 @@ namespace RestApi.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ContractStatu
+    public partial class ContractStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ContractStatu()
+        public ContractStatus()
         {
             Contracts = new HashSet<Contract>();
         }

@@ -22,12 +22,6 @@ namespace RestApi.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [MaxLength(4)]
-        public byte[] Color { get; set; }
-
-        [Column(TypeName = "image")]
-        public byte[] Image { get; set; }
-
         public int Value { get; set; }
 
         public int Duration { get; set; }

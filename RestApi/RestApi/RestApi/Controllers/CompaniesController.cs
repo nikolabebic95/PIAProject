@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -83,7 +84,7 @@ namespace RestApi.Controllers
 
             db.Companies.Add(company);
             db.SaveChanges();
-
+ 
             return CreatedAtRoute("DefaultApi", new { id = company.Id }, company);
         }
 

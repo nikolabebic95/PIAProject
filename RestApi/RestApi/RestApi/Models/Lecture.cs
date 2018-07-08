@@ -43,10 +43,11 @@ namespace RestApi.Models
         [StringLength(1000)]
         public string LecturerBio { get; set; }
 
-        public byte[] Attachment { get; set; }
+        [StringLength(100)]
+        public string Attachment { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] Image { get; set; }
+        [StringLength(100)]
+        public string Image { get; set; }
 
         public virtual Company Company { get; set; }
     }

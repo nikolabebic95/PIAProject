@@ -11,7 +11,6 @@ namespace RestApi.Models
     [Table("Announcement")]
     public partial class Announcement
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [JsonIgnore]
@@ -31,7 +30,8 @@ namespace RestApi.Models
 
         public DateTime InputDateTime { get; set; }
 
-        public byte[] Attachment { get; set; }
+        [StringLength(100)]
+        public string Attachment { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime Deadline { get; set; }

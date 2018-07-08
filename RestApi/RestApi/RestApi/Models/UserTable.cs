@@ -46,8 +46,8 @@ namespace RestApi.Models
         [Column(TypeName = "date")]
         public DateTime? BirthDate { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] ProfilePicture { get; set; }
+        [StringLength(100)]
+        public string ProfilePicture { get; set; }
 
         [StringLength(500)]
         public string LinkedInAddress { get; set; }

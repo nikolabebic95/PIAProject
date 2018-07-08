@@ -19,9 +19,6 @@ namespace RestApi.Models
         [StringLength(3000)]
         public string Description { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] Image { get; set; }
-
         public int PackageId { get; set; }
 
         public virtual Package Package { get; set; }

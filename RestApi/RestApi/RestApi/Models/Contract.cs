@@ -9,7 +9,6 @@ namespace RestApi.Models
     [Table("Contract")]
     public partial class Contract
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public int CompanyId { get; set; }
@@ -31,7 +30,7 @@ namespace RestApi.Models
 
         public virtual Company Company { get; set; }
 
-        public virtual ContractStatu ContractStatu { get; set; }
+        public virtual ContractStatus ContractStatus { get; set; }
 
         public virtual Package Package { get; set; }
 

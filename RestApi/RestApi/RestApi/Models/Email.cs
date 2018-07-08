@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -16,8 +18,10 @@ namespace RestApi.Models
         [StringLength(100)]
         public string Email1 { get; set; }
 
+        [JsonIgnore]
         public int CompanyId { get; set; }
 
+        [JsonIgnore]
         public virtual Company Company { get; set; }
     }
 }

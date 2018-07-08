@@ -8,14 +8,14 @@ namespace RestApi.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=ConnectionModel")
+            : base("name=Model1")
         {
         }
 
         public virtual DbSet<Announcement> Announcements { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Contract> Contracts { get; set; }
-        public virtual DbSet<ContractStatu> ContractStatus { get; set; }
+        public virtual DbSet<ContractStatus> ContractStatuses { get; set; }
         public virtual DbSet<CooperatesWith> CooperatesWiths { get; set; }
         public virtual DbSet<DonorContract> DonorContracts { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
@@ -24,7 +24,6 @@ namespace RestApi.Models
         public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<PackageItem> PackageItems { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserTable> UserTables { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -35,6 +34,10 @@ namespace RestApi.Models
 
             modelBuilder.Entity<Announcement>()
                 .Property(e => e.Description)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Announcement>()
+                .Property(e => e.Attachment)
                 .IsFixedLength();
 
             modelBuilder.Entity<Company>()
@@ -82,7 +85,7 @@ namespace RestApi.Models
                 .IsFixedLength();
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.LogoPath)
+                .Property(e => e.Logo)
                 .IsFixedLength();
 
             modelBuilder.Entity<Contract>()
@@ -99,13 +102,13 @@ namespace RestApi.Models
                 .WithRequired(e => e.Contract)
                 .WillCascadeOnDelete();
 
-            modelBuilder.Entity<ContractStatu>()
+            modelBuilder.Entity<ContractStatus>()
                 .Property(e => e.Name)
                 .IsFixedLength();
 
-            modelBuilder.Entity<ContractStatu>()
+            modelBuilder.Entity<ContractStatus>()
                 .HasMany(e => e.Contracts)
-                .WithRequired(e => e.ContractStatu)
+                .WithRequired(e => e.ContractStatus)
                 .HasForeignKey(e => e.StatusId);
 
             modelBuilder.Entity<DonorContract>()
@@ -144,12 +147,16 @@ namespace RestApi.Models
                 .Property(e => e.LecturerBio)
                 .IsFixedLength();
 
-            modelBuilder.Entity<Package>()
-                .Property(e => e.Name)
+            modelBuilder.Entity<Lecture>()
+                .Property(e => e.Attachment)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Lecture>()
+                .Property(e => e.Image)
                 .IsFixedLength();
 
             modelBuilder.Entity<Package>()
-                .Property(e => e.Color)
+                .Property(e => e.Name)
                 .IsFixedLength();
 
             modelBuilder.Entity<Package>()
@@ -197,6 +204,10 @@ namespace RestApi.Models
                 .Property(e => e.Gender)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<UserTable>()
+                .Property(e => e.ProfilePicture)
+                .IsFixedLength();
 
             modelBuilder.Entity<UserTable>()
                 .Property(e => e.LinkedInAddress)

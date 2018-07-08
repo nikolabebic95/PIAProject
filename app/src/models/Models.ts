@@ -1,3 +1,13 @@
+type Email = {
+    Id: number,
+    Email1: string,
+}
+
+type PhoneNumber = {
+    Id: number,
+    PhoneNumber1: string
+}
+
 type Company = {
     Id: number,
     Name: string,
@@ -11,9 +21,9 @@ type Company = {
     ContactName: string,
     ContactPhone: string,
     ContactEmail: string,
-    LogoPath: string
-    Emails: any[]
-    PhoneNumbers: any[]
+    Logo: string,
+    Emails: Email[],
+    PhoneNumbers: PhoneNumber[]
 }
 
 type Announcement = {
