@@ -19,10 +19,20 @@ namespace RestApi.Controllers
     {
         private Model1 db = new Model1();
 
+        private const int RESULTS_ON_PAGE = 20;
+
         // GET: api/Companies
-        public IQueryable<Company> GetCompanies()
+        public IQueryable<Company> GetCompanies(string packageName = "", string companyName = "", int page = 0)
         {
-            return db.Companies;
+            if (packageName == "")
+            {
+                return db.Companies.Where(company => companyName == "" || company.Name.ToLower().Contains(companyName.ToLower()))
+                    .OrderBy(company => company.Name.ToLower()).Skip(page * RESULTS_ON_PAGE).Take(RESULTS_ON_PAGE);
+            }
+
+            return db.Contracts.Where(contract => contract.Package.Name.ToLower().Contains(packageName.ToLower()))
+                .Select(contract => contract.Company).Where(company => companyName == "" || company.Name.ToLower().Contains(companyName.ToLower()))
+                .OrderBy(company => company.Name.ToLower()).Skip(page * RESULTS_ON_PAGE).Take(RESULTS_ON_PAGE);
         }
 
         // GET: api/Companies/5
@@ -84,7 +94,7 @@ namespace RestApi.Controllers
 
             db.Companies.Add(company);
             db.SaveChanges();
- 
+
             return CreatedAtRoute("DefaultApi", new { id = company.Id }, company);
         }
 
