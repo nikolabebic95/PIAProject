@@ -75,15 +75,19 @@ class ListCompanies extends React.Component<any, ListCompaniesState> {
                         </div>
                     </div>
                 </form>
-                <ul>
+                <div className="container">
                     {
                         this.state.list.map(company => {
                             return (
-                                <li><a href={"/companies/view/" + company.Id}>{company.Name}</a></li>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <h4><a href={"/companies/view/" + company.Id}>{company.Name}</a></h4>
+                                    </div>
+                                </div>
                             )
                         })
                     }
-                </ul>
+                </div>
             </div>
         )
     }
