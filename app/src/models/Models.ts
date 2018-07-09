@@ -68,3 +68,20 @@ type UserTable = {
     ProfilePicture: any,
     LinkedInAddress: string
 }
+
+type PackageItem = {
+    Id: number,
+    Name: string,
+    Description: string,
+}
+
+type Package = {
+    Id: number,
+    Name: string,
+    Value: number,
+    Duration: number,
+    MaxNumCompaniesYearly: number,
+    ShowName: boolean,
+    ShowLogo: boolean
+    PackageItems: PackageItem[]
+}

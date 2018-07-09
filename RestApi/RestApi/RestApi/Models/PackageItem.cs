@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -19,8 +21,10 @@ namespace RestApi.Models
         [StringLength(3000)]
         public string Description { get; set; }
 
+        [JsonIgnore]
         public int PackageId { get; set; }
 
+        [JsonIgnore]
         public virtual Package Package { get; set; }
     }
 }

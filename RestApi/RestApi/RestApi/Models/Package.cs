@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -32,6 +34,7 @@ namespace RestApi.Models
 
         public bool ShowLogo { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contract> Contracts { get; set; }
 
