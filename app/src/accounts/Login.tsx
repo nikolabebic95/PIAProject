@@ -21,12 +21,12 @@ class Login extends React.Component<any, LoginState> {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    private handleSubmit(event): boolean {
+    private handleSubmit(): boolean {
         this.props.history.push("/");
         return true;
     }
 
-    private handleUsernameChange(event) {
+    private handleUsernameChange() {
         this.setState(prevState => {
             let username_input = document.getElementById("username_input") as HTMLInputElement;
 
@@ -37,7 +37,7 @@ class Login extends React.Component<any, LoginState> {
         })
     }
 
-    private handlePasswordChange(event) {
+    private handlePasswordChange() {
         this.setState(prevState => {
             let password_input = document.getElementById("password_input") as HTMLInputElement;
 

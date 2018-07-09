@@ -61,7 +61,7 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(attachment_data)
-                }).then(response => {
+                }).then(() => {
                     // Do nothing
                 })
             }
@@ -172,7 +172,7 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                                 this.state.companies.length ? (
                                     <select className="form-control" id="company" onChange={this.updateState}>
                                         {
-                                            this.state.companies.map((company, index) => {
+                                            this.state.companies.map(company => {
                                                 return (
                                                     <option value={company.Id}>{company.Name}</option>
                                                 )

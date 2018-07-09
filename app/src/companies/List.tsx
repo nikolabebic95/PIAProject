@@ -21,7 +21,7 @@ class ListCompanies extends React.Component<any, ListCompaniesState> {
         this.onChange = this.onChange.bind(this);
     }
 
-    private onChange(event) {
+    private onChange() {
         this.setState(prevState => {
             return {
                 list: prevState.list,

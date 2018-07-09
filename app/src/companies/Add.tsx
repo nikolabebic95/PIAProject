@@ -172,7 +172,7 @@ class AddCompany extends React.Component<any, AddCompanyState> {
         })
     }
 
-    private submitForm(event) {
+    private submitForm() {
         let company = this.state.company;
         company.Emails = company.Emails.filter(email => email.Email1.length > 0);
         company.PhoneNumbers = company.PhoneNumbers.filter(number => number.PhoneNumber1.length > 0);
@@ -198,7 +198,7 @@ class AddCompany extends React.Component<any, AddCompanyState> {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(image_data)
-            }).then(response => {
+            }).then(() => {
                 // Do nothing
             })
         });
