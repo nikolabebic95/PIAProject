@@ -1,4 +1,5 @@
 import * as React from "react"
+import {getTodayInputString} from "../utils/utils";
 
 type AddAnnouncementState = {
     announcement: Announcement,
@@ -36,9 +37,6 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
     private submitForm() {
         let announcement = this.state.announcement;
         if (announcement.Attachment != null) announcement.Attachment = announcement.Attachment.split('\\').pop().split('/').pop();
-
-        console.log("Log");
-        console.log(JSON.stringify(announcement));
 
         fetch("http://localhost:56871/api/Announcements", {
             method: 'POST',
@@ -119,19 +117,6 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                 }
             })
         };
-    }
-
-    private static getTodayInputString() {
-        let now = new Date();
-        let month = (now.getMonth() + 1);
-        let day = now.getDate();
-        let monthString = "" + month;
-        let dayString = "" + day;
-        if (month < 10)
-            monthString = "0" + month;
-        if (day < 10)
-            dayString = "0" + day;
-        return now.getFullYear() + '-' + monthString + '-' + dayString
     }
 
     public componentDidMount() {
@@ -218,7 +203,7 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                         </div>
                         <div className="col-md-4">
                             <label>Deadline</label>
-                            <input type="date" defaultValue={AddAnnouncement.getTodayInputString()}
+                            <input type="date" defaultValue={getTodayInputString()}
                                    className="form-control" id="deadline" onChange={this.updateState}/>
                         </div>
                     </div>

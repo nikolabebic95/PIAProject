@@ -51,7 +51,8 @@ type Lecture = {
     LecturerBio: string,
     Attachment: any,
     Image: any,
-    Company: Company
+    Company: Company,
+    CompanyId: number
 }
 
 type UserTable = {

@@ -12,8 +12,7 @@ namespace RestApi.Models
     public partial class Lecture
     {
         public int Id { get; set; }
-
-        [JsonIgnore]
+        
         public int CompanyId { get; set; }
 
         [Required]
