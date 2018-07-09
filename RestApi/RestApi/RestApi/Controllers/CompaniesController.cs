@@ -22,7 +22,7 @@ namespace RestApi.Controllers
         private const int RESULTS_ON_PAGE = 20;
 
         // GET: api/Companies
-        public IQueryable<Company> GetCompanies(string packageName = null, string companyName = null, int page = 0)
+        public IQueryable<Company> GetCompanies(int page = 0, string packageName = null, string companyName = null)
         {
             if (string.IsNullOrEmpty(packageName))
             {
@@ -33,6 +33,12 @@ namespace RestApi.Controllers
             return db.Contracts.Where(contract => contract.Package.Name.ToLower().Contains(packageName.ToLower()))
                 .Select(contract => contract.Company).Where(company => string.IsNullOrEmpty(companyName) || company.Name.ToLower().Contains(companyName.ToLower()))
                 .OrderBy(company => company.Name.ToLower()).Skip(page * RESULTS_ON_PAGE).Take(RESULTS_ON_PAGE);
+        }
+
+        // GET: api/Companies
+        public IQueryable<Company> GetCompanies(string username)
+        {
+            return db.CooperatesWiths.Where(item => item.UserTable.Username == username).Select(item => item.Company);
         }
 
         // GET: api/Companies/5

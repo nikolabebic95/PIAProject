@@ -54,13 +54,24 @@ namespace RestApi.Controllers
         // POST: api/Data
         public void Post([FromBody]DataModel data)
         {
-            if (data.Type == "company")
+            switch (data.Type)
             {
-                var company = db.Companies.Find(data.Id);
-                if (company != null)
-                {
-                    SaveToFile(data.Data, $"/App_Data/Companies/{data.Id}-{company.Logo}");
-                }
+                case "company":
+                    var company = db.Companies.Find(data.Id);
+                    if (company != null)
+                    {
+                        SaveToFile(data.Data, $"/App_Data/Companies/{data.Id}-{company.Logo}");
+                    }
+
+                    break;
+                case "announcement":
+                    var announcement = db.Announcements.Find(data.Id);
+                    if (announcement != null)
+                    {
+                        SaveToFile(data.Data, $"/App_Data/Announcements/{data.Id}-{announcement.Attachment}");
+                    }
+
+                    break;
             }
         }
 

@@ -35,7 +35,8 @@ type Announcement = {
     InputDateTime: string,
     Attachment: any,
     Deadline: string,
-    Company: Company
+    Company: Company,
+    CompanyId: number
 }
 
 type Lecture = {
