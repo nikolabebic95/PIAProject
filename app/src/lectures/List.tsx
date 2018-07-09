@@ -90,59 +90,63 @@ class ListLectures extends React.Component<any, ListLecturesState> {
                         </tbody>
                     </table>
                 </div>
-                <div className="row table-responsive">
-                    <div className="alert alert-info text-center">Stara predavanja</div>
-                    <table className="table">
-                        <thead>
-                        <th>
-                            Naslov
-                        </th>
-                        <th>
-                            Kompanija
-                        </th>
-                        <th>
-                            Opis
-                        </th>
-                        <th>
-                            Datum i vreme
-                        </th>
-                        <th>
-                            Predavač
-                        </th>
-                        <th>
-                            Biografija
-                        </th>
-                        </thead>
-                        <tbody>
-                        {
-                            this.state.past.map(item => {
-                                return (
-                                    <tr>
-                                        <td>
-                                            {item.Title.trim()}
-                                        </td>
-                                        <td>
-                                            {item.Company.Name.trim()}
-                                        </td>
-                                        <td>
-                                            {item.Description.trim()}
-                                        </td>
-                                        <td>
-                                            {new Date(item.DateTime).toLocaleDateString()} {new Date(item.DateTime).toLocaleTimeString()}
-                                        </td>
-                                        <td>
-                                            {item.LecturerName.trim()}
-                                        </td>
-                                        <td>
-                                            {item.LecturerBio.trim()}
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                        </tbody>
-                    </table>
-                </div>
+                {
+                    this.state.past.length ? (
+                        <div className="row table-responsive">
+                            <div className="alert alert-info text-center">Stara predavanja</div>
+                            <table className="table">
+                                <thead>
+                                <th>
+                                    Naslov
+                                </th>
+                                <th>
+                                    Kompanija
+                                </th>
+                                <th>
+                                    Opis
+                                </th>
+                                <th>
+                                    Datum i vreme
+                                </th>
+                                <th>
+                                    Predavač
+                                </th>
+                                <th>
+                                    Biografija
+                                </th>
+                                </thead>
+                                <tbody>
+                                {
+                                    this.state.past.map(item => {
+                                        return (
+                                            <tr>
+                                                <td>
+                                                    {item.Title.trim()}
+                                                </td>
+                                                <td>
+                                                    {item.Company.Name.trim()}
+                                                </td>
+                                                <td>
+                                                    {item.Description.trim()}
+                                                </td>
+                                                <td>
+                                                    {new Date(item.DateTime).toLocaleDateString()} {new Date(item.DateTime).toLocaleTimeString()}
+                                                </td>
+                                                <td>
+                                                    {item.LecturerName.trim()}
+                                                </td>
+                                                <td>
+                                                    {item.LecturerBio.trim()}
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (<div />)
+                }
                 <a href="/lectures/list_english">Or see this page in English</a>
             </div>
         ) : (
