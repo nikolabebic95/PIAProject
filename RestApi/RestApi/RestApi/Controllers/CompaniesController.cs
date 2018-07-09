@@ -22,16 +22,16 @@ namespace RestApi.Controllers
         private const int RESULTS_ON_PAGE = 20;
 
         // GET: api/Companies
-        public IQueryable<Company> GetCompanies(string packageName = "", string companyName = "", int page = 0)
+        public IQueryable<Company> GetCompanies(string packageName = null, string companyName = null, int page = 0)
         {
-            if (packageName == "")
+            if (string.IsNullOrEmpty(packageName))
             {
-                return db.Companies.Where(company => companyName == "" || company.Name.ToLower().Contains(companyName.ToLower()))
+                return db.Companies.Where(company => string.IsNullOrEmpty(companyName) || company.Name.ToLower().Contains(companyName.ToLower()))
                     .OrderBy(company => company.Name.ToLower()).Skip(page * RESULTS_ON_PAGE).Take(RESULTS_ON_PAGE);
             }
 
             return db.Contracts.Where(contract => contract.Package.Name.ToLower().Contains(packageName.ToLower()))
-                .Select(contract => contract.Company).Where(company => companyName == "" || company.Name.ToLower().Contains(companyName.ToLower()))
+                .Select(contract => contract.Company).Where(company => string.IsNullOrEmpty(companyName) || company.Name.ToLower().Contains(companyName.ToLower()))
                 .OrderBy(company => company.Name.ToLower()).Skip(page * RESULTS_ON_PAGE).Take(RESULTS_ON_PAGE);
         }
 
