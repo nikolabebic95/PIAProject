@@ -352,7 +352,7 @@ class AddCompany extends React.Component<any, AddCompanyState> {
                         </div>
                         <div className="col-sm-4 form-group">
                             <label>Contact Email <span style={{color: "red"}}>*</span></label>
-                            <input type="text" placeholder="Enter Contact Email Here..."
+                            <input type="email" placeholder="Enter Contact Email Here..."
                                    className="form-control" id="contact_email" onChange={this.updateState}/>
                         </div>
                     </div>

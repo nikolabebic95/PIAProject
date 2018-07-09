@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
 using RestApi.Data;
 using RestApi.Models;
 
@@ -20,12 +21,16 @@ namespace RestApi.Controllers
         private static void SaveToFile(byte[] data, string path)
         {
             path = HostingEnvironment.MapPath(path);
-
             if (path == null) return;
-            using (var stream = File.OpenWrite(path))
-            {
-                stream.Write(data, 0, data.Length);
-            }
+            File.WriteAllBytes(path, data);
+        }
+
+        private static byte[] ReadFromFile(string path)
+        {
+            path = HostingEnvironment.MapPath(path);
+            if (path == null) return null;
+
+            return File.ReadAllBytes(path);
         }
 
         // GET: api/Data
@@ -35,9 +40,15 @@ namespace RestApi.Controllers
         }
 
         // GET: api/Data/5
-        public string Get(int id)
+        public byte[] Get(int id, string type = "")
         {
-            return "value";
+            if (type == "company")
+            {
+                var company = db.Companies.Find(id);
+                return company == null ? null : ReadFromFile($"/App_Data/Companies/{id}-{company.Logo}");
+            }
+
+            return null;
         }
 
         // POST: api/Data

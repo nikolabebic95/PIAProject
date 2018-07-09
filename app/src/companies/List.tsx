@@ -79,7 +79,7 @@ class ListCompanies extends React.Component<any, ListCompaniesState> {
                     {
                         this.state.list.map(company => {
                             return (
-                                <li><a href="#">{company.Name}</a></li>
+                                <li><a href={"/companies/view/" + company.Id}>{company.Name}</a></li>
                             )
                         })
                     }
