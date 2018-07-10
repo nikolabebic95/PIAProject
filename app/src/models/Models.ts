@@ -112,3 +112,12 @@ type MoneyContract = {
     Contract: Contract,
     ContractId: number
 }
+
+type DonorContract = {
+    EstimatedValue: number,
+    Description: string,
+    Amount: number,
+    DeliveryDate: string,
+    Contract: Contract,
+    ContractId: number
+}

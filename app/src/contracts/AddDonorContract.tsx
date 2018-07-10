@@ -1,8 +1,8 @@
 import * as React from "react"
 import {findFirst, getDateFromString, getDatePlusYears, getStringFromDate, getTodayInputString} from "../utils/utils";
 
-type AddMoneyContractState = {
-    contract: MoneyContract,
+type AddDonorContractState = {
+    contract: DonorContract,
     message: string,
     companies: Company[],
     packages: Package[],
@@ -10,14 +10,15 @@ type AddMoneyContractState = {
     is_payment_made: boolean
 }
 
-class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
+class AddDonorContract extends React.Component<any, AddDonorContractState> {
     public constructor(props) {
         super(props);
         this.state = {
             contract: {
-                Value: 0,
-                IsBillSent: false,
-                PaymentDate: getTodayInputString(),
+                EstimatedValue: 0,
+                Description: "",
+                Amount: 0,
+                DeliveryDate: "",
                 Contract: {
                     Id: 0,
                     StartDate: getTodayInputString(),
@@ -42,16 +43,14 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
 
         this.submitForm = this.submitForm.bind(this);
         this.updateState = this.updateState.bind(this);
-        this.updatePayment = this.updatePayment.bind(this);
     }
 
     private submitForm() {
         let contract = this.state.contract;
-        if (!this.state.is_payment_made) contract.PaymentDate = "";
         let pkg = findFirst(this.state.packages, pkg => pkg.Id === this.state.contract.Contract.PackageId);
         contract.Contract.EndDate = getStringFromDate(getDatePlusYears(getDateFromString(contract.Contract.StartDate), pkg.Duration));
 
-        fetch("http://localhost:56871/api/MoneyContracts", {
+        fetch("http://localhost:56871/api/DonorContracts", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -70,19 +69,20 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
         let company = document.getElementById("company") as HTMLSelectElement;
         let pkg = document.getElementById("package") as HTMLSelectElement;
         let value = document.getElementById("value") as HTMLInputElement;
-        let is_bill_sent = document.getElementById("is_bill_sent") as HTMLInputElement;
+        let amount = document.getElementById("amount") as HTMLInputElement;
         let start_date = document.getElementById("date") as HTMLInputElement;
         let status = document.getElementById("status") as HTMLSelectElement;
-        let is_payment_made = document.getElementById("is_payment_made") as HTMLInputElement;
-        let payment_date = document.getElementById("payment_date") as HTMLInputElement;
+        let delivery_date = document.getElementById("delivery_date") as HTMLInputElement;
+        let description = document.getElementById("description") as HTMLTextAreaElement;
         let comment = document.getElementById("comment") as HTMLTextAreaElement;
 
         this.setState(prevState => {
             return {
                 contract: {
-                    Value: parseInt(value.value, 10),
-                    IsBillSent: is_bill_sent.checked,
-                    PaymentDate: is_payment_made.checked ? payment_date.value : "",
+                    EstimatedValue: parseInt(value.value, 10),
+                    Description: description.value,
+                    Amount: parseInt(amount.value, 10),
+                    DeliveryDate: delivery_date.value,
                     Contract: {
                         Id: 0,
                         StartDate: start_date.value,
@@ -105,21 +105,6 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                 is_payment_made: prevState.is_payment_made
             }
         })
-    }
-
-    private updatePayment() {
-        let is_payment_made = document.getElementById("is_payment_made") as HTMLInputElement;
-        this.setState(prevState => {
-            if (is_payment_made.checked) prevState.contract.PaymentDate = getTodayInputString();
-            return {
-                contract: prevState.contract,
-                message: "",
-                companies: prevState.companies,
-                packages: prevState.packages,
-                statuses: prevState.statuses,
-                is_payment_made: is_payment_made.checked
-            }
-        });
     }
 
     public componentDidMount() {
@@ -166,7 +151,7 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
     public render() {
         return (
             <div className="container text-center">
-                <h1 className="well">Add a money contract</h1>
+                <h1 className="well">Add a donor contract</h1>
                 {
                     this.state.message.length ? (
                         <div className="alert alert-danger">
@@ -224,14 +209,14 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <label>Value</label>
-                            <input type="text" placeholder="Enter Value Here..."
+                            <label>Estimated value</label>
+                            <input type="text" placeholder="Enter Estimated Value Here..."
                                    className="form-control" id="value" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
-                            <label>Is bill sent?</label>
-                            <input type="checkbox" className="form-control" id="is_bill_sent"
-                                   onChange={this.updateState}/>
+                            <label>Amount</label>
+                            <input type="text" placeholder="Enter Amount Here..." className="form-control"
+                                   id="amount" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
                             <label>Start date</label>
@@ -240,7 +225,7 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                             {
                                 this.state.statuses.length ? (
                                     <div>
@@ -262,22 +247,18 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                                 )
                             }
                         </div>
-                        <div className="col-md-4">
-                            <label>Is payment made?</label>
-                            <input type="checkbox" className="form-control" id="is_payment_made"
-                                   onChange={this.updatePayment}/>
+                        <div className="col-md-6">
+                            <label>Delivery date</label>
+                            <input type="date" defaultValue={getTodayInputString()}
+                                   className="form-control" id="delivery_date" onChange={this.updateState}/>
                         </div>
-                        {
-                            this.state.is_payment_made ? (
-                                <div className="col-md-4">
-                                    <label>Payment date</label>
-                                    <input type="date" defaultValue={getTodayInputString()}
-                                           className="form-control" id="payment_date" onChange={this.updateState}/>
-                                </div>
-                            ) : (
-                                <div />
-                            )
-                        }
+                    </div>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <label>Description</label>
+                            <textarea rows={5} placeholder="Enter Description Here..."
+                                      className="form-control" id="description" onChange={this.updateState}/>
+                        </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
@@ -294,4 +275,4 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
     }
 }
 
-export default AddMoneyContract
+export default AddDonorContract
