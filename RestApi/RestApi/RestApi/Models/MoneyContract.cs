@@ -18,7 +18,7 @@ namespace RestApi.Models
         public bool IsBillSent { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? PaynemtDate { get; set; }
+        public DateTime? PaymentDate { get; set; }
 
         public virtual Contract Contract { get; set; }
     }

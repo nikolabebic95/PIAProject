@@ -138,8 +138,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\ContractStatusController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
+    <Compile Include="Controllers\MoneyContractsController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
     <Compile Include="Data\DataModel.cs" />

@@ -39,7 +39,6 @@ class AddPackage extends React.Component<any, AddPackageState> {
     public submitForm() {
         let pkg = this.state.package;
         pkg.PackageItems = this.state.package_items;
-        console.log(JSON.stringify(pkg));
 
         fetch("http://localhost:56871/api/Packages", {
             method: 'POST',

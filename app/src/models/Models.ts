@@ -85,3 +85,30 @@ type Package = {
     ShowLogo: boolean
     PackageItems: PackageItem[]
 }
+
+type ContractStatus = {
+    Id: number,
+    Name: string,
+}
+
+type Contract = {
+    Id: number,
+    StartDate: string,
+    EndDate: string,
+    Comment: string,
+    IsActive: boolean,
+    CompanyId: number,
+    Company: Company,
+    PackageId: number,
+    Package: Package,
+    ContractStatus: ContractStatus,
+    StatusId: number
+}
+
+type MoneyContract = {
+    Value: number,
+    IsBillSent: boolean,
+    PaymentDate: string,
+    Contract: Contract,
+    ContractId: number
+}
