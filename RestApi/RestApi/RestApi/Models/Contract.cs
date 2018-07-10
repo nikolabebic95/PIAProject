@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -34,8 +36,10 @@ namespace RestApi.Models
 
         public virtual Package Package { get; set; }
 
+        [JsonIgnore]
         public virtual DonorContract DonorContract { get; set; }
 
+        [JsonIgnore]
         public virtual MoneyContract MoneyContract { get; set; }
     }
 }

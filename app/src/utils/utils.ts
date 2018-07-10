@@ -6,7 +6,8 @@ export function prefixRoutes(name: string, routes) {
 }
 
 export function getDateFromString(dateString: string) {
-    let parts = dateString.split('-');
+    let parts1 = dateString.split('T');
+    let parts = parts1[0].split('-');
     // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
     // January - 0, February - 1, etc.
     return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
@@ -55,4 +56,11 @@ export function findFirst(array, func) {
     }
 
     return null;
+}
+
+export function makeTooltip(contract: Contract) {
+    return "<div class='container'>" +
+        "<div class='row'><div class='col-md-12 alert alert-dark'><h4>" + contract.Company.Name.trim() + "</h4></div></div>" +
+        "<div class='row'><div class='col-md-12 alert alert-light'>" + contract.Package.Name.trim() + "</div></div>" +
+        "</div>"
 }
