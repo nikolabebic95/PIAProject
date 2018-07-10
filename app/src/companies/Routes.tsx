@@ -5,6 +5,10 @@ import ListCompanies from "./List";
 import ViewCompany from "./View";
 
 export function routes() {
+    return [];
+}
+
+export function userRoutes() {
     let ret = [
         { path: "add", component: AddCompany},
         { path: "list", component: ListCompanies},
@@ -12,4 +16,12 @@ export function routes() {
     ];
 
     return Utils.prefixRoutes("companies", ret);
+}
+
+export function managerRoutes() {
+    return [];
+}
+
+export function adminRoutes() {
+    return [];
 }

@@ -121,3 +121,12 @@ type DonorContract = {
     Contract: Contract,
     ContractId: number
 }
+
+type LoginRequest = {
+    Username: string,
+    Password: string
+}
+
+type LoginInfo = {
+    Type: string
+}

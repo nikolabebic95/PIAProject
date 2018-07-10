@@ -64,3 +64,16 @@ export function makeTooltip(contract: Contract) {
         "<div class='row'><div class='col-md-12 alert alert-light'>" + contract.Package.Name.trim() + "</div></div>" +
         "</div>"
 }
+
+export function isLoggedIn(): boolean {
+    return localStorage.getItem("loggedIn") !== null;
+}
+
+export function requireLoggedIn(nextState, replace) {
+    console.log("Log: " + JSON.stringify(isLoggedIn()));
+    if (!isLoggedIn()) {
+        replace({
+            pathname: "/accounts/login"
+        });
+    }
+}

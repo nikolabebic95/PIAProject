@@ -7,9 +7,24 @@ import AddLecture from "./Add";
 export function routes() {
     let ret = [
         { path: "list", component: ListLectures},
-        { path: "list_english", component: ListLecturesEnglish},
+        { path: "list_english", component: ListLecturesEnglish}
+    ];
+
+    return Utils.prefixRoutes("lectures", ret);
+}
+
+export function userRoutes() {
+    let ret = [
         { path: "add", component: AddLecture}
     ];
 
     return Utils.prefixRoutes("lectures", ret);
+}
+
+export function managerRoutes() {
+    return [];
+}
+
+export function adminRoutes() {
+    return [];
 }

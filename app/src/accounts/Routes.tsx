@@ -13,3 +13,15 @@ export function routes() {
 
     return Utils.prefixRoutes("accounts", ret);
 }
+
+export function userRoutes() {
+    return [];
+}
+
+export function managerRoutes() {
+    return [];
+}
+
+export function adminRoutes() {
+    return [];
+}

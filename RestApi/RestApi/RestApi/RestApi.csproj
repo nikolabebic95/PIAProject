@@ -143,10 +143,13 @@
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DonorContractsController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MoneyContractsController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
     <Compile Include="Data\DataModel.cs" />
+    <Compile Include="Data\LoginInfo.cs" />
+    <Compile Include="Data\LoginRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

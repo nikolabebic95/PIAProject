@@ -1,5 +1,7 @@
 import * as React from "react"
 import { withRouter } from "react-router-dom"
+import LocalStorageUtility from "../utils/LocalStorageUtility";
+const sha = require("crypto-js/sha256");
 
 type LoginState = {
     username: string;
@@ -21,7 +23,26 @@ class Login extends React.Component<any, LoginState> {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
-    private handleSubmit(): boolean {
+    private handleSubmit(event): boolean {
+        let username = this.state.username;
+        let password = sha(this.state.password);
+
+        let loginRequest = {
+            Username: username,
+            Password: password
+        };
+
+        fetch("http://localhost:56871/api/Login", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginRequest)
+        }).then(result => result.json()).then(data => {
+            LocalStorageUtility.logIn(data.Type);
+        });
+
         this.props.history.push("/");
         return true;
     }
