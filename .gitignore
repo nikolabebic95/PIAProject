@@ -402,5 +402,6 @@ app/src/lectures/*.js
 app/src/companies/*.js
 app/src/packages/*js
 app/src/contracts/*js
+app/src/misc/*js
 
 RestApi/RestApi/RestApi/App_Data/**/
