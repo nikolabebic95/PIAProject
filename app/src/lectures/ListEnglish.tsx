@@ -32,7 +32,6 @@ class ListLectures extends React.Component<any, ListLecturesState> {
                     past: items
                 }
             }))
-
     }
 
     public render() {
