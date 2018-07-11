@@ -179,7 +179,7 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                             {
                                 this.state.companies.length ? (
                                     <div>
-                                        <label>Company</label>
+                                        <label>Company <span style={{color: "red"}}>*</span></label>
                                         <select className="form-control" id="company" onChange={this.updateState}>
                                             {
                                                 this.state.companies.map(company => {
@@ -202,7 +202,7 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                             {
                                 this.state.packages.length ? (
                                     <div>
-                                        <label>Package</label>
+                                        <label>Package <span style={{color: "red"}}>*</span></label>
                                         <select className="form-control" id="package" onChange={this.updateState}>
                                             {
                                                 this.state.packages.map(pkg => {
@@ -223,8 +223,8 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <label>Value</label>
-                            <input type="text" placeholder="Enter Value Here..."
+                            <label>Value <span style={{color: "red"}}>*</span></label>
+                            <input type="number" placeholder="Enter Value Here..."
                                    className="form-control" id="value" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
@@ -233,7 +233,7 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                                    onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
-                            <label>Start date</label>
+                            <label>Start date <span style={{color: "red"}}>*</span></label>
                             <input type="date" defaultValue={getTodayInputString()}
                                    className="form-control" id="date" onChange={this.updateState}/>
                         </div>
@@ -243,7 +243,7 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
                             {
                                 this.state.statuses.length ? (
                                     <div>
-                                        <label>Status</label>
+                                        <label>Status <span style={{color: "red"}}>*</span></label>
                                         <select className="form-control" id="status" onChange={this.updateState}>
                                             {
                                                 this.state.statuses.map(status => {

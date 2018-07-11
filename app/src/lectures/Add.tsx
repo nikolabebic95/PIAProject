@@ -13,7 +13,21 @@ class AddLecture extends React.Component<any, AddLectureState> {
     public constructor(props) {
         super(props);
         this.state = {
-            lecture: null,
+            lecture: {
+                Id: 0,
+                Title: "",
+                TitleEnglish: "",
+                Description: "",
+                DescriptionEnglish: "",
+                DateTime: "",
+                Room: "",
+                LecturerName: "",
+                LecturerBio: "",
+                Attachment: null,
+                Image: null,
+                Company: null,
+                CompanyId: 0
+            },
             message: "",
             companies: [],
             attachment: null,
@@ -64,7 +78,36 @@ class AddLecture extends React.Component<any, AddLectureState> {
         })
     }
 
-    public submitForm() {
+    private checkRequiredFields(): boolean {
+        return this.state.lecture.Title.length > 0 &&
+            this.state.lecture.Description.length > 0 &&
+            this.state.lecture.LecturerName.length > 0 &&
+            this.state.lecture.Room.length > 0;
+    }
+
+    private setErrorMessage(message: string): void {
+        this.setState(prevState => {
+            return {
+                lecture: prevState.lecture,
+                message: message,
+                companies: prevState.companies,
+                attachment: prevState.attachment,
+                image: prevState.image
+            }
+        });
+    }
+
+    private raiseError(message: string, event): boolean {
+        this.setErrorMessage(message);
+        event.preventDefault();
+        return false;
+    }
+
+    public submitForm(event) {
+        if (!this.checkRequiredFields()) {
+            return this.raiseError("You must fill all required fields", event);
+        }
+
         let lecture = this.state.lecture;
         if (lecture.Attachment != null) lecture.Attachment = lecture.Attachment.split('\\').pop().split('/').pop();
         if (lecture.Image != null) lecture.Image = lecture.Image.split('\\').pop().split('/').pop();
@@ -113,7 +156,7 @@ class AddLecture extends React.Component<any, AddLectureState> {
                 })
             }
         });
-        this.props.history.push("/");
+
         return true;
     }
 
@@ -188,14 +231,17 @@ class AddLecture extends React.Component<any, AddLectureState> {
                 <form className="form" role="form" onSubmit={this.submitForm} acceptCharset="UTF-8">
                     <div className="row">
                         <div className="col-md-5">
+                            <label>Serbian Title <span style={{color: "red"}}>*</span></label>
                             <input type="text" placeholder="Enter Lecture Serbian Title Here..."
                                    className="form-control" id="title" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-5">
+                            <label>Title</label>
                             <input type="text" placeholder="Enter Lecture Title Here..."
                                    className="form-control" id="title_english" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-2">
+                            <label>Company <span style={{color: "red"}}>*</span></label>
                             {
                                 this.state.companies.length ? (
                                     <select className="form-control" id="company" onChange={this.updateState}>
@@ -218,7 +264,7 @@ class AddLecture extends React.Component<any, AddLectureState> {
                     <div className="row">
                         <div className="col-md-12">
                             <h4 className="well">
-                                Description
+                                Description <span style={{color: "red"}}>*</span>
                             </h4>
                         </div>
                     </div>
@@ -234,17 +280,17 @@ class AddLecture extends React.Component<any, AddLectureState> {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <label>Lecturer</label>
+                            <label>Lecturer <span style={{color: "red"}}>*</span></label>
                             <input type="text" placeholder="Enter Lecturer Name Here..." className="form-control"
                                    id="lecturer" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
-                            <label>Room</label>
+                            <label>Room <span style={{color: "red"}}>*</span></label>
                             <input type="text" placeholder="Enter Room Number Here..." className="form-control"
                                    id="room" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
-                            <label>Date</label>
+                            <label>Date <span style={{color: "red"}}>*</span></label>
                             <input type="datetime-local" defaultValue={getTodayInputDateTimeString()}
                                    className="form-control" id="datetime" onChange={this.updateState}/>
                         </div>
@@ -268,7 +314,7 @@ class AddLecture extends React.Component<any, AddLectureState> {
                                       className="form-control" id="bio" onChange={this.updateState}/>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-lg btn-info">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block btn-dark">Submit</button>
                 </form>
             </div>
         )

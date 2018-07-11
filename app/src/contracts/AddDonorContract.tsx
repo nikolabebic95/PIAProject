@@ -45,7 +45,34 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
         this.updateState = this.updateState.bind(this);
     }
 
-    private submitForm() {
+    private checkRequiredFields(): boolean {
+        return this.state.contract.Description.length > 0;
+    }
+
+    private setErrorMessage(message: string): void {
+        this.setState(prevState => {
+            return {
+                contract: prevState.contract,
+                message: message,
+                companies: prevState.companies,
+                packages: prevState.packages,
+                statuses: prevState.statuses,
+                is_payment_made: prevState.is_payment_made
+            }
+        });
+    }
+
+    private raiseError(message: string, event): boolean {
+        this.setErrorMessage(message);
+        event.preventDefault();
+        return false;
+    }
+
+    private submitForm(event) {
+        if (!this.checkRequiredFields()) {
+            return this.raiseError("You must fill all required fields", event);
+        }
+
         let contract = this.state.contract;
         let pkg = findFirst(this.state.packages, pkg => pkg.Id === this.state.contract.Contract.PackageId);
         contract.Contract.EndDate = getStringFromDate(getDatePlusYears(getDateFromString(contract.Contract.StartDate), pkg.Duration));
@@ -164,7 +191,7 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
                             {
                                 this.state.companies.length ? (
                                     <div>
-                                        <label>Company</label>
+                                        <label>Company <span style={{color: "red"}}>*</span></label>
                                         <select className="form-control" id="company" onChange={this.updateState}>
                                             {
                                                 this.state.companies.map(company => {
@@ -187,7 +214,7 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
                             {
                                 this.state.packages.length ? (
                                     <div>
-                                        <label>Package</label>
+                                        <label>Package <span style={{color: "red"}}>*</span></label>
                                         <select className="form-control" id="package" onChange={this.updateState}>
                                             {
                                                 this.state.packages.map(pkg => {
@@ -208,17 +235,17 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <label>Estimated value</label>
-                            <input type="text" placeholder="Enter Estimated Value Here..."
+                            <label>Estimated value <span style={{color: "red"}}>*</span></label>
+                            <input type="number" placeholder="Enter Estimated Value Here..."
                                    className="form-control" id="value" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
                             <label>Amount</label>
-                            <input type="text" placeholder="Enter Amount Here..." className="form-control"
+                            <input type="number" placeholder="Enter Amount Here..." className="form-control"
                                    id="amount" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
-                            <label>Start date</label>
+                            <label>Start date <span style={{color: "red"}}>*</span></label>
                             <input type="date" defaultValue={getTodayInputString()}
                                    className="form-control" id="date" onChange={this.updateState}/>
                         </div>
@@ -228,7 +255,7 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
                             {
                                 this.state.statuses.length ? (
                                     <div>
-                                        <label>Status</label>
+                                        <label>Status <span style={{color: "red"}}>*</span></label>
                                         <select className="form-control" id="status" onChange={this.updateState}>
                                             {
                                                 this.state.statuses.map(status => {
@@ -247,14 +274,14 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
                             }
                         </div>
                         <div className="col-md-6">
-                            <label>Delivery date</label>
+                            <label>Delivery date <span style={{color: "red"}}>*</span></label>
                             <input type="date" defaultValue={getTodayInputString()}
                                    className="form-control" id="delivery_date" onChange={this.updateState}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <label>Description</label>
+                            <label>Description <span style={{color: "red"}}>*</span></label>
                             <textarea rows={5} placeholder="Enter Description Here..."
                                       className="form-control" id="description" onChange={this.updateState}/>
                         </div>
@@ -267,7 +294,7 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
                         </div>
                     </div>
                     <br />
-                    <button type="submit" className="btn btn-lg btn-info">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block btn-dark">Submit</button>
                 </form>
             </div>
         )
