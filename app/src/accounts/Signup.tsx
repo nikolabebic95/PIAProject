@@ -288,7 +288,7 @@ class Signup extends React.Component<any, SignupState> {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-lg btn-info">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block btn-dark">Submit</button>
                 </form>
             </div>
         )

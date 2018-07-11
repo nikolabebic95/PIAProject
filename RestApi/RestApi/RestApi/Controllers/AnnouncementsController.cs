@@ -81,6 +81,8 @@ namespace RestApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (string.IsNullOrWhiteSpace(announcement.Attachment)) announcement.Attachment = null;
+
             db.Announcements.Add(announcement);
 
             try

@@ -25,6 +25,19 @@ class ApproveUsers extends React.Component<any, ApproveUsersState> {
         }).then(() => this.componentDidMount())
     }
 
+    private decline(index) {
+        let user = this.state.users[index];
+
+        fetch("http://localhost:56871/api/Decline", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user.Id)
+        }).then(() => this.componentDidMount())
+    }
+
     public componentDidMount() {
         fetch("http://localhost:56871/api/UserTables?newOnly=true", {method: 'GET'})
             .then(result => result.json())
@@ -50,14 +63,18 @@ class ApproveUsers extends React.Component<any, ApproveUsersState> {
                                     {user.Username}
                                 </div>
                                 <div className="col-md-3">
-                                    {user.Email}
-                                </div>
-                                <div className="col-md-3">
                                     <button type="button" className="btn btn-md btn-success"
                                             onClick={() => this.approve(index)}>
                                         Approve
                                     </button>
                                 </div>
+                                <div className="col-md-3">
+                                    <button type="button" className="btn btn-md btn-danger"
+                                            onClick={() => this.decline(index)}>
+                                        Decline
+                                    </button>
+                                </div>
+
                             </div>
                         )
                     })

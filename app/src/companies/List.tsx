@@ -35,7 +35,7 @@ class ListCompanies extends React.Component<any, ListCompaniesState> {
     private submitForm(event) {
         event.preventDefault();
 
-        fetch("http://localhost:56871/api/Companies?packageName=" + this.state.package_name + "&companyName=" + this.state.company_name, {method: 'GET'})
+        fetch("http://localhost:56871/api/Companies?packageName=" + this.state.package_name + "&companyName=" + this.state.company_name + "&activeOnly=" + (this.state.only_active ? "true" : "false"), {method: 'GET'})
             .then(result => result.json())
             .then(items => this.setState(prevState => {
                 return {
@@ -71,7 +71,7 @@ class ListCompanies extends React.Component<any, ListCompaniesState> {
                                    onChange={this.onChange}/>
                         </div>
                         <div className="col-md-2 form-group">
-                            <button type="submit" className="btn btn-lg btn-info">Search...</button>
+                            <button type="submit" className="btn btn-primary btn-block btn-dark">Search...</button>
                         </div>
                     </div>
                 </form>

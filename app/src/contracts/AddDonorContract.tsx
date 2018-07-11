@@ -61,7 +61,6 @@ class AddDonorContract extends React.Component<any, AddDonorContractState> {
             // Do nothing
         });
 
-        this.props.history.push("/");
         return true;
     }
 

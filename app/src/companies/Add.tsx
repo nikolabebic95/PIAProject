@@ -173,7 +173,42 @@ class AddCompany extends React.Component<any, AddCompanyState> {
         })
     }
 
-    private submitForm() {
+    private checkRequiredFields(): boolean {
+        return this.state.company.Name.length > 0 &&
+            this.state.company.Address.length > 0 &&
+            this.state.company.Logo.length > 0 &&
+            this.state.company.City.length > 0 &&
+            this.state.company.ZipCode.length > 0 &&
+            this.state.company.Country.length > 0 &&
+            this.state.company.BankAccount.length > 0 &&
+            this.state.company.Currency.length > 0 &&
+            this.state.company.TaxNumber.length > 0 &&
+            this.state.company.ContactName.length > 0 &&
+            this.state.company.ContactPhone.length > 0 &&
+            this.state.company.ContactEmail.length > 0;
+    }
+
+    private setErrorMessage(message: string): void {
+        this.setState(prevState => {
+            return {
+                company: prevState.company,
+                message: message,
+                logo: prevState.logo
+            }
+        });
+    }
+
+    private raiseError(message: string, event): boolean {
+        this.setErrorMessage(message);
+        event.preventDefault();
+        return false;
+    }
+
+    private submitForm(event) {
+        if (!this.checkRequiredFields()) {
+            return this.raiseError("You must fill all required fields", event);
+        }
+
         let company = this.state.company;
         company.Emails = company.Emails.filter(email => email.Email1.length > 0);
         company.PhoneNumbers = company.PhoneNumbers.filter(number => number.PhoneNumber1.length > 0);
@@ -374,7 +409,7 @@ class AddCompany extends React.Component<any, AddCompanyState> {
                                    className="form-control" id="contact_email" onChange={this.updateState}/>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-lg btn-info">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block btn-dark">Submit</button>
                 </form>
             </div>
         )

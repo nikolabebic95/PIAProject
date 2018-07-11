@@ -62,7 +62,6 @@ class AddMoneyContract extends React.Component<any, AddMoneyContractState> {
             // Do nothing
         });
 
-        this.props.history.push("/");
         return true;
     }
 

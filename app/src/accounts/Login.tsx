@@ -111,7 +111,7 @@ class Login extends React.Component<any, LoginState> {
                                 }
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary btn-block">
+                                <button type="submit" className="btn btn-primary btn-dark btn-block">
                                     Sign in
                                 </button>
                             </div>

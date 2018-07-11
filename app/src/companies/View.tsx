@@ -8,6 +8,7 @@ type ViewCompanyState = {
 class ViewCompany extends React.Component<any, ViewCompanyState> {
     public constructor(props) {
         super(props);
+
         this.state = {
             company: null,
             logo: null

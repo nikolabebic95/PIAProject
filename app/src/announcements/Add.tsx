@@ -3,9 +3,9 @@ import {getTodayInputString} from "../utils/utils";
 
 type AddAnnouncementState = {
     announcement: Announcement,
-    message: "",
+    message: string,
     companies: Company[],
-    attachment: any
+    attachment: any,
 }
 
 class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
@@ -34,9 +34,43 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
         this.uploadAttachment = this.uploadAttachment.bind(this);
     }
 
-    private submitForm() {
+    private setErrorMessage(message: string): void {
+        this.setState(prevState => {
+            return {
+                announcement: prevState.announcement,
+                message: message,
+                companies: prevState.companies,
+                attachment: prevState.attachment
+            }
+        });
+    }
+
+    private raiseError(message: string, event): boolean {
+        this.setErrorMessage(message);
+        event.preventDefault();
+        return false;
+    }
+
+    private checkRequiredFields(): boolean {
+        return this.state.announcement.Title.length > 0 &&
+            this.state.announcement.Description.length > 0;
+    }
+
+    private checkInternshipJob(): boolean {
+        return this.state.announcement.IsInternship || this.state.announcement.IsJob
+    }
+
+    private submitForm(event) {
         let announcement = this.state.announcement;
         if (announcement.Attachment != null) announcement.Attachment = announcement.Attachment.split('\\').pop().split('/').pop();
+
+        if (!this.checkRequiredFields()) {
+            return this.raiseError("You must fill all required fields", event);
+        }
+
+        if (!this.checkInternshipJob()) {
+            return this.raiseError("You must specify either an internship or a job", event);
+        }
 
         fetch("http://localhost:56871/api/Announcements", {
             method: 'POST',
@@ -149,10 +183,12 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                 <form className="form" role="form" onSubmit={this.submitForm} acceptCharset="UTF-8">
                     <div className="row">
                         <div className="col-md-6">
+                            <label>Title <span style={{color: "red"}}>*</span></label>
                             <input type="text" placeholder="Enter Announcement Title Here..."
                                    className="form-control" id="title" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-6">
+                            <label>Company <span style={{color: "red"}}>*</span></label>
                             {
                                 this.state.companies.length ? (
                                     <select className="form-control" id="company" onChange={this.updateState}>
@@ -175,7 +211,7 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                     <div className="row">
                         <div className="col-md-12">
                             <h4 className="well">
-                                Description
+                                Description <span style={{color: "red"}}>*</span>
                             </h4>
                         </div>
                     </div>
@@ -202,12 +238,13 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
                                    onChange={this.updateState}/>
                         </div>
                         <div className="col-md-4">
-                            <label>Deadline</label>
+                            <label>Deadline <span style={{color: "red"}}>*</span></label>
                             <input type="date" defaultValue={getTodayInputString()}
                                    className="form-control" id="deadline" onChange={this.updateState}/>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-lg btn-info">Submit</button>
+                    <br />
+                    <button type="submit" className="btn btn-primary btn-block btn-dark">Submit</button>
                 </form>
             </div>
         )

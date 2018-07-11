@@ -42,10 +42,14 @@ namespace RestApi.Controllers
         // GET: api/Data/5
         public byte[] Get(int id, string type = "")
         {
-            if (type == "company")
+            switch (type)
             {
-                var company = db.Companies.Find(id);
-                return company == null ? null : ReadFromFile($"/App_Data/Companies/{id}-{company.Logo}");
+                case "company":
+                    var company = db.Companies.Find(id);
+                    return company == null ? null : ReadFromFile($"/App_Data/Companies/{id}-{company.Logo}");
+                case "announcement":
+                    var announcement = db.Announcements.Find(id);
+                    return announcement == null ? null : ReadFromFile($"/App_Data/Announcements/{id}-{announcement.Attachment}");
             }
 
             return null;

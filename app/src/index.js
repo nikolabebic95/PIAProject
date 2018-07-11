@@ -17,6 +17,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {Route, Switch, Redirect} from "react-router"
 import Layout from "./utils/Layout"
 import PrivateRoute from "./utils/PrivateRoute";
+import View from "./companies/View"
 
 // TODO: concat other routes
 const routes = []
@@ -61,19 +62,19 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={App}/>
                 {routes.map(route => <Route exact path={route.path} component={route.component}/>)}
-                {userRoutes.map(route => <Route exact path={route.path} render={() =>
-                    <PrivateRoute role="u">
-                        {React.createElement(route.component)}
+                {userRoutes.map(route => <Route exact path={route.path} render={(props) =>
+                    <PrivateRoute {...props} role="u">
+                        {React.createElement(route.component, ...props)}
                     </PrivateRoute>
                 }/>)}
-                {managerRoutes.map(route => <Route exact path={route.path} render={() =>
-                    <PrivateRoute role="m">
-                        {React.createElement(route.component)}
+                {managerRoutes.map(route => <Route exact path={route.path} render={(props) =>
+                    <PrivateRoute {...props} role="m">
+                        {React.createElement(route.component, ...props)}
                     </PrivateRoute>
                 }/>)}
-                {adminRoutes.map(route => <Route exact path={route.path} render={() =>
-                    <PrivateRoute role="a">
-                        {React.createElement(route.component)}
+                {adminRoutes.map(route => <Route exact path={route.path} render={(props) =>
+                    <PrivateRoute {...props} role="a">
+                        {React.createElement(route.component, ...props)}
                     </PrivateRoute>
                 }/>)}
                 <Route render={() => <Redirect to="/misc/not_found"/>}/>

@@ -143,6 +143,7 @@
     <Compile Include="Controllers\ContractStatusController.cs" />
     <Compile Include="Controllers\CooperatesWithsController.cs" />
     <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\DeclineController.cs" />
     <Compile Include="Controllers\DonorContractsController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
