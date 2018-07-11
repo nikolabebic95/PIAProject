@@ -19,9 +19,9 @@ namespace RestApi.Controllers
         private Model1 db = new Model1();
 
         // GET: api/Contracts
-        public IQueryable<Contract> GetContracts()
+        public IQueryable<Contract> GetContracts(string companyName = "")
         {
-            return db.Contracts;
+            return string.IsNullOrEmpty(companyName) ? db.Contracts : db.Contracts.Where(item => item.Company.Name.Contains(companyName)).OrderBy(item => item.Package.Name);
         }
 
         // GET: api/Contracts/5

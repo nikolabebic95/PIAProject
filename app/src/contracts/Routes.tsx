@@ -2,9 +2,14 @@ import * as React from "react";
 import * as Utils from "../utils/utils";
 import AddMoneyContract from "./AddMoneyContract";
 import AddDonorContract from "./AddDonorContract";
+import ListContracts from "./List";
 
 export function routes() {
-    return [];
+    let ret = [
+        { path: "list", component: ListContracts}
+    ];
+
+    return Utils.prefixRoutes("contracts", ret);
 }
 
 export function userRoutes() {
