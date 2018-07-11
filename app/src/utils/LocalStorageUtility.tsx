@@ -22,6 +22,12 @@ class LocalStorageUtility {
         return user.Username;
     }
 
+    public static getUserId(): number {
+        let user = JSON.parse(localStorage.getItem("user")) as UserTable;
+        if (user === null) return 0;
+        return user.Id;
+    }
+
     private static mapRole(role: string): number {
         switch (role) {
             case "u": return 1;

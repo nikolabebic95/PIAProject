@@ -58,7 +58,7 @@ class LinkWithUser extends React.Component<any, LinkWithUserState> {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(entry)
-        }).then(result => result.json()).then(() => {
+        }).then(() => {
             // Do nothing
         });
 

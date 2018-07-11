@@ -1,4 +1,5 @@
 import * as React from "react"
+import LocalStorageUtility from "../utils/LocalStorageUtility";
 
 type AddCompanyState = {
     message: string
@@ -186,6 +187,22 @@ class AddCompany extends React.Component<any, AddCompanyState> {
             },
             body: JSON.stringify(company)
         }).then(result => result.json()).then(data => {
+            let cooperates_with_data = {
+                UserTableId: LocalStorageUtility.getUserId(),
+                CompanyId: data.Id
+            };
+
+            fetch("http://localhost:56871/api/CooperatesWiths", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cooperates_with_data)
+            }).then(() => {
+                // Do nothing
+            });
+
             let image_data = {
                 Type: "company",
                 Id: data.Id,
@@ -202,6 +219,7 @@ class AddCompany extends React.Component<any, AddCompanyState> {
                 // Do nothing
             })
         });
+
         this.props.history.push("/");
         return true;
     }
