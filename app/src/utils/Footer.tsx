@@ -1,33 +1,25 @@
 import * as React from "react"
 
-// TODO: Implement actual footer
 class Footer extends React.Component<any, any> {
     public constructor(props) {
         super(props);
-        this.state = {jokes: []}
-    }
-
-    private getFoodData() {
-        fetch("http://localhost:3333/api/jokes/food", {method: 'GET'})
-            .then(result => result.json())
-            .then(items => this.setState({jokes: items}))
-    }
-
-    public componentDidMount() {
-        this.getFoodData();
     }
 
     public render() {
         return (
-            <div className="container">
-                {
-                    this.state.jokes.map((joke, index) => {
-                        return <div className="row">
-                            {joke.joke}
-                        </div>
-                    })
-                }
-            </div>
+            <nav className="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
+                <div className="container">
+                    <div className="navbar-brand">
+                        Copyright &copy; ETF 2018
+                    </div>
+                </div>
+                <div className="container">
+                    <div />
+                    <div className="navbar-brand navbar-right">
+                        Author: Nikola Bebić
+                    </div>
+                </div>
+            </nav>
         )
     }
 }

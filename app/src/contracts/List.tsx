@@ -105,7 +105,7 @@ class ListContracts extends React.Component<any, ListContractsState> {
                             this.state.links.map(link => {
                                 return (
                                     <div className="col-md-4">
-                                        <a href={"#" + link.id} className="btn btn-dark" >{link.name}</a>
+                                        <a href={"#" + link.id} className="btn btn-sm btn-dark" >{link.name}</a>
                                     </div>
                                 )
                             })

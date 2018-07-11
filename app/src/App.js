@@ -29,7 +29,7 @@ var App = /** @class */ (function (_super) {
         clearInterval(this.interval);
     };
     App.prototype.render = function () {
-        return (React.createElement("div", { className: "App" },
+        return (React.createElement("div", { className: "container text-center" },
             React.createElement("header", { className: "App-header" },
                 React.createElement("img", { height: "200px", width: "200px", src: logo, className: "App-logo", alt: "logo" }),
                 React.createElement("h1", { className: "App-title" }, "Welcome to React")),

@@ -21,7 +21,8 @@ namespace RestApi.Controllers
         // GET: api/Contracts
         public IQueryable<Contract> GetContracts(string companyName = "")
         {
-            return string.IsNullOrEmpty(companyName) ? db.Contracts : db.Contracts.Where(item => item.Company.Name.Contains(companyName)).OrderBy(item => item.Package.Name);
+            return string.IsNullOrEmpty(companyName) ? db.Contracts.OrderBy(item => item.Package.Name) : 
+                db.Contracts.Where(item => item.Company.Name.Contains(companyName)).OrderBy(item => item.Package.Name);
         }
 
         // GET: api/Contracts

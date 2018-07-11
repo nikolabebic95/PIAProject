@@ -29,7 +29,7 @@ class App extends React.Component<void, AppState> {
 
     public render() {
         return (
-            <div className="App">
+            <div className="container text-center">
                 <header className="App-header">
                     <img height="200px" width="200px" src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Welcome to React</h1>
