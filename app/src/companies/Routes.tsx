@@ -6,16 +6,13 @@ import ViewCompany from "./View";
 import LinkWithUser from "./LinkWithUser";
 
 export function routes() {
-    let ret = [
-        { path: "list", component: ListCompanies},
-        { path: "view/:id", component: ViewCompany}
-    ];
-
-    return Utils.prefixRoutes("companies", ret);
+    return [];
 }
 
 export function userRoutes() {
     let ret = [
+        { path: "list", component: ListCompanies},
+        { path: "view/:id", component: ViewCompany},
         { path: "add", component: AddCompany},
     ];
 

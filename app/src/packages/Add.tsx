@@ -159,24 +159,24 @@ class AddPackage extends React.Component<any, AddPackageState> {
                 <form className="form" role="form" onSubmit={this.submitForm} acceptCharset="UTF-8">
                     <div className="row">
                         <div className="col-md-6">
-                            <label>Name</label>
+                            <label>Name <span style={{color: "red"}}>*</span></label>
                             <input type="text" placeholder="Enter Name Here..."
                                    className="form-control" id="name" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-6">
-                            <label>Value in &euro;</label>
+                            <label>Value in &euro; <span style={{color: "red"}}>*</span></label>
                             <input type="number" placeholder="Enter Value Here..."
                                    className="form-control" id="value" onChange={this.updateState}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <label>Duration in years</label>
+                            <label>Duration in years <span style={{color: "red"}}>*</span></label>
                             <input type="number" placeholder="Enter Duration Here..."
                                    className="form-control" id="duration" onChange={this.updateState}/>
                         </div>
                         <div className="col-md-6">
-                            <label>Number of companies yearly</label>
+                            <label>Number of companies yearly <span style={{color: "red"}}>*</span></label>
                             <input type="number" placeholder="Enter Number Here..."
                                    className="form-control" id="number" onChange={this.updateState}/>
                         </div>
@@ -196,7 +196,7 @@ class AddPackage extends React.Component<any, AddPackageState> {
                     <div className="row">
                         <div className="col-md-12">
                             <h4 className="well">
-                                Package items
+                                Package items <span style={{color: "red"}}>*</span>
                             </h4>
                         </div>
                     </div>

@@ -92,7 +92,7 @@ class ListLectures extends React.Component<any, ListLecturesState> {
                 {
                     this.state.past.length ? (
                         <div className="row table-responsive">
-                            <div className="alert alert-info text-center">Stara predavanja</div>
+                            <div className="alert alert-info text-center">Archive</div>
                             <table className="table">
                                 <thead>
                                 <th>
