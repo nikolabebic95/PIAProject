@@ -72,6 +72,14 @@ namespace RestApi.Controllers
                     }
 
                     break;
+                case "user":
+                    var user = db.UserTables.Find(data.Id);
+                    if (user != null)
+                    {
+                        SaveToFile(data.Data, $"/App_Data/Users/{data.Id}-{user.ProfilePicture}");
+                    }
+
+                    break;
             }
         }
 

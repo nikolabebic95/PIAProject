@@ -8,6 +8,7 @@ using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using RestApi.Data;
 using RestApi.Models;
+using RestApi.Util;
 
 namespace RestApi.Controllers
 {
@@ -17,17 +18,18 @@ namespace RestApi.Controllers
         private Model1 db = new Model1();
 
         // POST: api/Login
-        [ResponseType(typeof(LoginInfo))]
+        [ResponseType(typeof(UserTable))]
         public IHttpActionResult Post([FromBody]LoginRequest request)
         {
-            if (request.Username == "nikola")
+            var pass = ShaUtil.ComputeSha256Hash(request.Password);
+            var user = db.UserTables.SingleOrDefault(u => u.Username == request.Username && u.PasswordHash == pass);
+            if (user == null)
             {
-                var ret = new LoginInfo { Type = "a" };
-                return Ok(ret);
+                return NotFound();
             }
 
-            return NotFound();
+            user.PasswordHash = "";
+            return Ok(user);
         }
-
     }
 }

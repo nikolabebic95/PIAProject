@@ -1,5 +1,7 @@
 import * as React from "react"
 
+const sha = require("crypto-js/sha256");
+
 type SignupState = {
     user: UserTable;
     message: string,
@@ -20,11 +22,12 @@ class Signup extends React.Component<any, SignupState> {
                 Email: "",
                 Organization: "",
                 Username: "",
-                Password: "",
+                PasswordHash: "",
                 Gender: "",
                 BirthDate: "",
                 ProfilePicture: null,
-                LinkedInAddress: ""
+                LinkedInAddress: "",
+                Type: "n"
             },
             message: "",
             confirm_password: "",
@@ -37,7 +40,7 @@ class Signup extends React.Component<any, SignupState> {
     }
 
     private checkPassword(): boolean {
-        return this.state.user.Password === this.state.confirm_password;
+        return this.state.user.PasswordHash === this.state.confirm_password;
     }
 
     private checkRequiredFields(): boolean {
@@ -45,11 +48,11 @@ class Signup extends React.Component<any, SignupState> {
             this.state.user.LastName.length > 0 &&
             this.state.user.Email.length > 0 &&
             this.state.user.Username.length > 0 &&
-            this.state.user.Password.length > 0;
+            this.state.user.PasswordHash.length > 0;
     }
 
     private checkPasswordRules(): boolean {
-        let pass = this.state.user.Password;
+        let pass = this.state.user.PasswordHash;
         return pass.length >= 8 && pass.length <= 12 &&
             /.*[A-Z].*/.test(pass) &&
             /.*[a-z].*[a-z].*[a-z].*/.test(pass) &&
@@ -92,8 +95,40 @@ class Signup extends React.Component<any, SignupState> {
                 " adjacent characters is 2", event);
         }
 
-        this.props.history.push("/");
-        return true;
+        let user = this.state.user;
+        user.PasswordHash = JSON.stringify(sha(user.PasswordHash));
+
+        fetch("http://localhost:56871/api/UserTables", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        }).then(result => result.json()).then(data => {
+            if (data.Message) {
+                this.raiseError(data.Message, event);
+                return;
+            } else if (this.state.user.ProfilePicture && this.state.user.ProfilePicture.length) {
+                let profile_picture_data = {
+                    Type: "user",
+                    Id: data.Id,
+                    Data: btoa(this.state.profile_picture)
+                };
+                fetch("http://localhost:56871/api/Data", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(profile_picture_data)
+                }).then(() => {
+                    // Do nothing
+                })
+            }
+        });
+
+        return false;
     }
 
     private updateState() {
@@ -122,11 +157,12 @@ class Signup extends React.Component<any, SignupState> {
                     Email: email.value,
                     Organization: organization.value,
                     Username: username.value,
-                    Password: password.value,
+                    PasswordHash: password.value,
                     Gender: gender,
                     BirthDate: birth_date.value,
                     ProfilePicture: profile_picture.value,
-                    LinkedInAddress: linkedin.value
+                    LinkedInAddress: linkedin.value,
+                    Type: "n"
                 },
                 message: "",
                 confirm_password: confirm_password.value,

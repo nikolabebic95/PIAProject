@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using RestApi.Models;
+using RestApi.Util;
 
 namespace RestApi.Controllers
 {
@@ -81,8 +82,18 @@ namespace RestApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (db.UserTables.Any(user => user.Username == userTable.Username))
+            {
+                return BadRequest("Username already exists");
+            }
+
+            userTable.PasswordHash = ShaUtil.ComputeSha256Hash(userTable.PasswordHash);
+            userTable.Type = "n";
+
             db.UserTables.Add(userTable);
             db.SaveChanges();
+
+            userTable.PasswordHash = "";
 
             return CreatedAtRoute("DefaultApi", new { id = userTable.Id }, userTable);
         }

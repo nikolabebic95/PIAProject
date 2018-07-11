@@ -25,7 +25,7 @@ class Login extends React.Component<any, LoginState> {
 
     private handleSubmit(event): boolean {
         let username = this.state.username;
-        let password = sha(this.state.password);
+        let password = JSON.stringify(sha(this.state.password));
 
         let loginRequest = {
             Username: username,
@@ -40,11 +40,11 @@ class Login extends React.Component<any, LoginState> {
             },
             body: JSON.stringify(loginRequest)
         }).then(result => result.json()).then(data => {
-            LocalStorageUtility.logIn(data.Type);
+            LocalStorageUtility.logIn(data);
         });
 
-        this.props.history.push("/");
-        return true;
+        event.preventDefault();
+        return false;
     }
 
     private handleUsernameChange() {

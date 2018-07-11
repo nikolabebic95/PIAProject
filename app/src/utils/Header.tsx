@@ -45,6 +45,7 @@ class Header extends React.Component<any, HeaderState> {
                         {
                             this.state.loggedIn ? (
                                 <ul className="navbar-nav navbar-right">
+                                    <a href="#" className="nav-link">{LocalStorageUtility.getUsername()}</a>
                                     <a href="#" onClick={this.logOut} className="nav-link">
                                         Logout
                                     </a>

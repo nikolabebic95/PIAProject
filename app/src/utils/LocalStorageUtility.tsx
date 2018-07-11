@@ -1,16 +1,25 @@
 class LocalStorageUtility {
-    public static logIn(role: string): void {
-        localStorage.setItem("role", role);
+    public static logIn(user: UserTable): void {
+        console.log(JSON.stringify(user));
+        localStorage.setItem("role", user.Type);
+        localStorage.setItem("user", JSON.stringify(user));
     }
 
     public static logOut(): void {
         localStorage.removeItem("role");
+        localStorage.removeItem("user");
     }
 
     public static hasRole(role: string): boolean {
         let saved = localStorage.getItem("role");
         if (saved === null) return false;
         return LocalStorageUtility.mapRole(role) <= LocalStorageUtility.mapRole(saved);
+    }
+
+    public static getUsername(): string {
+        let user = JSON.parse(localStorage.getItem("user")) as UserTable;
+        if (user === null) return "dummy";
+        return user.Username;
     }
 
     private static mapRole(role: string): number {

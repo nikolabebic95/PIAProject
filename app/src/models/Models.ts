@@ -62,11 +62,12 @@ type UserTable = {
     Email: string,
     Organization: string,
     Username: string,
-    Password: string,
+    PasswordHash: string,
     Gender: string,
     BirthDate: string,
     ProfilePicture: any,
-    LinkedInAddress: string
+    LinkedInAddress: string,
+    Type: string
 }
 
 type PackageItem = {

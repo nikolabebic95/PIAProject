@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace RestApi.Models
 {
     using System;
@@ -37,8 +39,8 @@ namespace RestApi.Models
         public string Username { get; set; }
 
         [Required]
-        [MaxLength(32)]
-        public byte[] PasswordHash { get; set; }
+        [MaxLength(1000)]
+        public string PasswordHash { get; set; }
 
         [StringLength(1)]
         public string Gender { get; set; }
@@ -56,6 +58,7 @@ namespace RestApi.Models
         [StringLength(1)]
         public string Type { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CooperatesWith> CooperatesWiths { get; set; }
     }
