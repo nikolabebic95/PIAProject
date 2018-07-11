@@ -24,6 +24,18 @@ namespace RestApi.Controllers
             return string.IsNullOrEmpty(companyName) ? db.Contracts : db.Contracts.Where(item => item.Company.Name.Contains(companyName)).OrderBy(item => item.Package.Name);
         }
 
+        // GET: api/Contracts
+        public IQueryable<Contract> GetContracts(bool future)
+        {
+            var now = DateTime.Now;
+            var futureDate = now.AddMonths(6);
+            var pastDate = now.AddMonths(-6);
+
+            return future
+                ? db.Contracts.Where(item => item.EndDate > now && item.EndDate <= futureDate)
+                : db.Contracts.Where(item => item.EndDate < now && item.EndDate >= pastDate);
+        }
+
         // GET: api/Contracts/5
         [ResponseType(typeof(Contract))]
         public IHttpActionResult GetContract(int id)

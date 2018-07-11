@@ -19,8 +19,7 @@ var Dashboard = /** @class */ (function (_super) {
         _this.state = {
             contracts: [],
             chartItems: [],
-            json: null,
-            csv: null
+            past: []
         };
         _this.chartEvents = [
             {
@@ -36,48 +35,73 @@ var Dashboard = /** @class */ (function (_super) {
     }
     Dashboard.prototype.componentDidMount = function () {
         var _this = this;
-        fetch("http://localhost:56871/api/Contracts", { method: 'GET' })
+        fetch("http://localhost:56871/api/Contracts?future=true", { method: 'GET' })
             .then(function (result) { return result.json(); })
             .then(function (items) { return _this.setState(function (prevState) {
             return {
                 contracts: items,
                 chartItems: items.map(function (item) { return [item.Company.Name, null, utils_1.makeTooltip(item), utils_1.getDateFromString(item.StartDate), utils_1.getDateFromString(item.EndDate)]; }),
-                json: prevState.json,
-                csv: prevState.csv
+                past: prevState.past
+            };
+        }); });
+        fetch("http://localhost:56871/api/Contracts?future=false", { method: 'GET' })
+            .then(function (result) { return result.json(); })
+            .then(function (items) { return _this.setState(function (prevState) {
+            return {
+                contracts: prevState.contracts,
+                chartItems: prevState.chartItems,
+                past: items
             };
         }); });
     };
     Dashboard.prototype.render = function () {
-        return (React.createElement("div", { className: "container text-center" },
-            React.createElement("h1", { className: "well" }, "Dashboard"),
-            React.createElement("div", { className: "row" }, this.state.contracts.length > 0 ? (React.createElement(react_google_charts_1.Chart, { chartType: "Timeline", columns: [
-                    { "id": "Company", "type": "string" },
-                    { "id": "dummy bar label", "type": "string" },
-                    { "role": "tooltip", "type": "string", "p": { "html": true } },
-                    { "id": "Start", "type": "date" },
-                    { "id": "End", "type": "date" },
-                ], rows: this.state.chartItems, options: {
-                    timeline: {
-                        showRowLabels: true
-                    },
-                    tooltip: {
-                        isHtml: true
-                    }
-                }, graph_id: "TimelineChart", width: "100%", height: "200px", chartEvents: this.chartEvents, chartPackages: ['timeline'] })) : (React.createElement("div", null))),
-            this.state.contracts.length > 0 ? (React.createElement("div", null,
-                React.createElement("h4", null, "Companies:"),
-                this.state.contracts.map(function (contract) {
-                    return (React.createElement("div", { className: "row" },
-                        React.createElement("div", { className: "col-md-4" },
-                            "Company: ",
-                            React.createElement("b", null, contract.Company.Name)),
-                        React.createElement("div", { className: "col-md-4" },
-                            "Package: ",
-                            React.createElement("b", null, contract.Package.Name)),
-                        React.createElement("div", { className: "col-md-4" },
-                            "End date: ",
-                            React.createElement("b", null, utils_1.getDateFromString(contract.EndDate).toLocaleDateString()))));
-                }),
+        return (React.createElement("div", null,
+            React.createElement("div", { className: "container text-center" },
+                React.createElement("h1", { className: "well" }, "Dashboard"),
+                React.createElement("div", { className: "row" }, this.state.contracts.length > 0 ? (React.createElement(react_google_charts_1.Chart, { chartType: "Timeline", columns: [
+                        { "id": "Company", "type": "string" },
+                        { "id": "dummy bar label", "type": "string" },
+                        { "role": "tooltip", "type": "string", "p": { "html": true } },
+                        { "id": "Start", "type": "date" },
+                        { "id": "End", "type": "date" },
+                    ], rows: this.state.chartItems, options: {
+                        timeline: {
+                            showRowLabels: true
+                        },
+                        tooltip: {
+                            isHtml: true
+                        }
+                    }, graph_id: "TimelineChart", width: "100%", height: "200px", chartEvents: this.chartEvents, chartPackages: ['timeline'] })) : (React.createElement("div", null)))),
+            this.state.contracts.length > 0 ? (React.createElement("div", { className: "container text-center" },
+                React.createElement("table", { className: "table table-fixed" },
+                    React.createElement("thead", null,
+                        React.createElement("th", null, "Company"),
+                        React.createElement("th", null, "Package"),
+                        React.createElement("th", null, "End date")),
+                    React.createElement("tbody", null, this.state.contracts.map(function (contract) {
+                        return (React.createElement("tr", null,
+                            React.createElement("td", null, contract.Company.Name.trim()),
+                            React.createElement("td", null, contract.Package.Name.trim()),
+                            React.createElement("td", null,
+                                "End date: ",
+                                utils_1.getDateFromString(contract.EndDate).toLocaleDateString())));
+                    }))),
+                React.createElement("br", null))) : (React.createElement("div", null)),
+            this.state.past.length > 0 ? (React.createElement("div", { className: "container text-center" },
+                React.createElement("h4", { className: "text-center well" }, "Past contracts"),
+                React.createElement("table", { className: "table table-fixed" },
+                    React.createElement("thead", null,
+                        React.createElement("th", null, "Company"),
+                        React.createElement("th", null, "Package"),
+                        React.createElement("th", null, "End date")),
+                    React.createElement("tbody", null, this.state.past.map(function (contract) {
+                        return (React.createElement("tr", null,
+                            React.createElement("td", null, contract.Company.Name.trim()),
+                            React.createElement("td", null, contract.Package.Name.trim()),
+                            React.createElement("td", null,
+                                "End date: ",
+                                utils_1.getDateFromString(contract.EndDate).toLocaleDateString())));
+                    }))),
                 React.createElement("br", null))) : (React.createElement("div", null))));
     };
     return Dashboard;
