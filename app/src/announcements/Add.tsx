@@ -1,5 +1,6 @@
 import * as React from "react"
 import {getTodayInputString} from "../utils/utils";
+import LocalStorageUtility from "../utils/LocalStorageUtility";
 
 type AddAnnouncementState = {
     announcement: Announcement,
@@ -154,7 +155,7 @@ class AddAnnouncement extends React.Component<any, AddAnnouncementState> {
     }
 
     public componentDidMount() {
-        let username = "nikola"; // TODO: Get current user username
+        let username = LocalStorageUtility.getUsername();
         fetch("http://localhost:56871/api/Companies?username=" + username, {method: 'GET'})
             .then(result => result.json())
             .then(items => this.setState(prevState => {

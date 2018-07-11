@@ -1,5 +1,6 @@
 import * as React from "react"
 import {getTodayInputDateTimeString} from "../utils/utils";
+import LocalStorageUtility from "../utils/LocalStorageUtility";
 
 type AddLectureState = {
     lecture: Lecture,
@@ -205,7 +206,7 @@ class AddLecture extends React.Component<any, AddLectureState> {
     }
 
     public componentDidMount() {
-        let username = "nikola"; // TODO: Get current user username
+        let username = LocalStorageUtility.getUsername();
         fetch("http://localhost:56871/api/Companies?username=" + username, {method: 'GET'})
             .then(result => result.json())
             .then(items => this.setState(prevState => {
