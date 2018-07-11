@@ -4,8 +4,9 @@ import LocalStorageUtility from "../utils/LocalStorageUtility";
 const sha = require("crypto-js/sha256");
 
 type LoginState = {
-    username: string;
-    password: string;
+    username: string,
+    password: string,
+    message: string
 }
 
 // TODO: Implement actual login
@@ -15,7 +16,8 @@ class Login extends React.Component<any, LoginState> {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            message: ""
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,7 +42,17 @@ class Login extends React.Component<any, LoginState> {
             },
             body: JSON.stringify(loginRequest)
         }).then(result => result.json()).then(data => {
-            LocalStorageUtility.logIn(data);
+            if (data.Message) {
+                this.setState(prevState => {
+                    return {
+                        username: prevState.username,
+                        password: "",
+                        message: data.Message
+                    }
+                })
+            } else {
+                LocalStorageUtility.logIn(data);
+            }
         });
 
         event.preventDefault();
@@ -53,7 +65,8 @@ class Login extends React.Component<any, LoginState> {
 
             return {
                 username: username_input.value,
-                password: prevState.password
+                password: prevState.password,
+                message: ""
             }
         })
     }
@@ -64,7 +77,8 @@ class Login extends React.Component<any, LoginState> {
 
             return {
                 username: prevState.username,
-                password: password_input.value
+                password: password_input.value,
+                message: ""
             }
         })
     }
@@ -88,9 +102,13 @@ class Login extends React.Component<any, LoginState> {
                                        htmlFor="exampleInputPassword2">Password</label>
                                 <input id="password_input" type="password" className="form-control"
                                        placeholder="Password" onChange={this.handlePasswordChange} required />
-                                <div className="help-block text-right">
-                                    <a href="/accounts/forgot_password">Forgot password ?</a>
-                                </div>
+                                {
+                                    this.state.message.length > 0 ? (
+                                        <div className="alert alert-danger">
+                                            {this.state.message}
+                                        </div>
+                                    ) : (<div />)
+                                }
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-primary btn-block">

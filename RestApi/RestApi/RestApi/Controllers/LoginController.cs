@@ -25,7 +25,7 @@ namespace RestApi.Controllers
             var user = db.UserTables.SingleOrDefault(u => u.Username == request.Username && u.PasswordHash == pass);
             if (user == null)
             {
-                return NotFound();
+                return BadRequest("Wrong username or password");
             }
 
             user.PasswordHash = "";
