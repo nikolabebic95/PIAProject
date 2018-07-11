@@ -28,6 +28,11 @@ namespace RestApi.Controllers
                 return BadRequest("Wrong username or password");
             }
 
+            if (user.Type == "n")
+            {
+                return BadRequest("User is not approved yet");
+            }
+
             user.PasswordHash = "";
             return Ok(user);
         }

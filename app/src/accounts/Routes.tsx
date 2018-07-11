@@ -2,6 +2,7 @@ import * as React from "react";
 import * as Utils from "../utils/utils";
 import Login from "./Login";
 import Signup from "./Signup";
+import ApproveUsers from "./Approve";
 
 export function routes() {
     let ret = [
@@ -21,5 +22,9 @@ export function managerRoutes() {
 }
 
 export function adminRoutes() {
-    return [];
+    let ret = [
+        { path: "approve", component: ApproveUsers},
+    ];
+
+    return Utils.prefixRoutes("accounts", ret);
 }

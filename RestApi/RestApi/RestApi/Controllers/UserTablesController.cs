@@ -22,7 +22,7 @@ namespace RestApi.Controllers
         // GET: api/UserTables
         public IQueryable<UserTable> GetUserTables()
         {
-            return db.UserTables;
+            return db.UserTables.Where(user => user.Type == "n");
         }
 
         // GET: api/UserTables/5
