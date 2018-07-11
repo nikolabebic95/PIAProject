@@ -1,9 +1,14 @@
 import * as React from "react";
 import * as Utils from "../utils/utils";
 import AddPackage from "./Add";
+import ListPackages from "./List";
 
 export function routes() {
-    return [];
+    let ret = [
+        { path: "list", component: ListPackages}
+    ];
+
+    return Utils.prefixRoutes("packages", ret);
 }
 
 export function userRoutes() {

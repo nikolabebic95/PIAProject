@@ -39,8 +39,7 @@ class Header extends React.Component<any, HeaderState> {
 
                     <div className="navbar-collapse collapse">
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item"><a href="#" className="nav-link">Partners</a></li>
-                            <li className="nav-item"><a href="#" className="nav-link">Packages</a></li>
+                            <li className="nav-item"><a href="/packages/list" className="nav-link">Packages</a></li>
                         </ul>
                         {
                             this.state.loggedIn ? (
