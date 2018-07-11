@@ -1,4 +1,5 @@
 import * as React from "react"
+import {FacebookShareButton, TwitterShareButton} from "react-share";
 
 type ListLecturesState = {
     future: Lecture[],
@@ -58,6 +59,8 @@ class ListLectures extends React.Component<any, ListLecturesState> {
                         <th>
                             Biografija
                         </th>
+                        <th>
+                        </th>
                         </thead>
                         <tbody>
                         {
@@ -81,6 +84,21 @@ class ListLectures extends React.Component<any, ListLecturesState> {
                                         </td>
                                         <td>
                                             {item.LecturerBio.trim()}
+                                        </td>
+                                        <td>
+                                            <FacebookShareButton
+                                                className="btn btn-sm btn-dark"
+                                                url={"www.etf.rs"}
+                                                quote={item.Title.trim() + " - " + item.Description.trim()}
+                                                hashtag={"#" + item.Company.Name}
+                                            >Share on Facebook</FacebookShareButton>
+                                            <br />
+                                            <TwitterShareButton
+                                                className="btn btn-sm btn-dark"
+                                                url={"www.etf.rs"}
+                                                title={item.Title.trim() + " - " + item.Description.trim()}
+                                                hashtags={[item.Company.Name, "Predavanje"]}
+                                            >Share on Twitter</TwitterShareButton>
                                         </td>
                                     </tr>
                                 )

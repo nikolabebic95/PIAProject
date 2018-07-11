@@ -1,5 +1,6 @@
 import * as React from "react"
 const download = require("downloadjs");
+import {FacebookShareButton, TwitterShareButton} from "react-share";
 
 type ListAnnouncementsState = {
     items: Announcement[]
@@ -54,6 +55,8 @@ class ListAnnouncements extends React.Component<any, ListAnnouncementsState> {
                 <th>
                     Attachment
                 </th>
+                <th>
+                </th>
                 </thead>
                 <tbody>
                 {
@@ -87,6 +90,21 @@ class ListAnnouncements extends React.Component<any, ListAnnouncementsState> {
                                             <div/>
                                         )
                                     }
+                                </td>
+                                <td>
+                                    <FacebookShareButton
+                                        className="btn btn-sm btn-dark"
+                                        url={"www.etf.rs"}
+                                        quote={item.Title.trim() + " - " + item.Description.trim()}
+                                        hashtag={item.IsInternship ? item.IsJob ? "#JobAndInternship" : "#Internship" : "#Job"}
+                                    >Share on Facebook</FacebookShareButton>
+                                    <br />
+                                    <TwitterShareButton
+                                        className="btn btn-sm btn-dark"
+                                        url={"www.etf.rs"}
+                                        title={item.Title.trim() + " - " + item.Description.trim()}
+                                        hashtags={item.IsInternship ? item.IsJob ? ["Job", "Internship"] : ["Internship"] : ["Job"]}
+                                    >Share on Twitter</TwitterShareButton>
                                 </td>
                             </tr>
                         )
