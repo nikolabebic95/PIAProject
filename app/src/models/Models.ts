@@ -123,6 +123,11 @@ type DonorContract = {
     ContractId: number
 }
 
+type CooperatesWith = {
+    UserTableId: number,
+    CompanyId: number
+}
+
 type LoginRequest = {
     Username: string,
     Password: string

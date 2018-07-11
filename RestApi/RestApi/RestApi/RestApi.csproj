@@ -141,6 +141,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ContractsController.cs" />
     <Compile Include="Controllers\ContractStatusController.cs" />
+    <Compile Include="Controllers\CooperatesWithsController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\DonorContractsController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />

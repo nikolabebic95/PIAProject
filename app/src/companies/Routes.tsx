@@ -3,6 +3,7 @@ import * as Utils from "../utils/utils";
 import AddCompany from "./Add"
 import ListCompanies from "./List";
 import ViewCompany from "./View";
+import LinkWithUser from "./LinkWithUser";
 
 export function routes() {
     return [];
@@ -19,7 +20,11 @@ export function userRoutes() {
 }
 
 export function managerRoutes() {
-    return [];
+    let ret = [
+        { path: "link", component: LinkWithUser},
+    ];
+
+    return Utils.prefixRoutes("companies", ret);
 }
 
 export function adminRoutes() {

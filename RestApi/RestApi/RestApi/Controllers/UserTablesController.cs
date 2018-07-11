@@ -20,9 +20,9 @@ namespace RestApi.Controllers
         private Model1 db = new Model1();
 
         // GET: api/UserTables
-        public IQueryable<UserTable> GetUserTables()
+        public IQueryable<UserTable> GetUserTables(bool newOnly = false)
         {
-            return db.UserTables.Where(user => user.Type == "n");
+            return newOnly ? db.UserTables.Where(user => user.Type == "n") : db.UserTables;
         }
 
         // GET: api/UserTables/5

@@ -26,7 +26,7 @@ class ApproveUsers extends React.Component<any, ApproveUsersState> {
     }
 
     public componentDidMount() {
-        fetch("http://localhost:56871/api/UserTables", {method: 'GET'})
+        fetch("http://localhost:56871/api/UserTables?newOnly=true", {method: 'GET'})
             .then(result => result.json())
             .then(items => this.setState({
                 users: items
