@@ -36,7 +36,31 @@ class AddPackage extends React.Component<any, AddPackageState> {
         this.deleteRow = this.deleteRow.bind(this);
     }
 
-    public submitForm() {
+    private checkRequiredFields(): boolean {
+        return this.state.package.Name.length > 0;
+    }
+
+    private setErrorMessage(message: string): void {
+        this.setState(prevState => {
+            return {
+                package: prevState.package,
+                message: message,
+                package_items: prevState.package_items
+            }
+        });
+    }
+
+    private raiseError(message: string, event): boolean {
+        this.setErrorMessage(message);
+        event.preventDefault();
+        return false;
+    }
+
+    public submitForm(event) {
+        if (!this.checkRequiredFields()) {
+            return this.raiseError("You must fill all required fields", event);
+        }
+
         let pkg = this.state.package;
         pkg.PackageItems = this.state.package_items;
 
@@ -230,7 +254,7 @@ class AddPackage extends React.Component<any, AddPackageState> {
                             })
                         }
                     </div>
-                    <button type="submit" className="btn btn-lg btn-info">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block btn-dark">Submit</button>
                 </form>
             </div>
         )
